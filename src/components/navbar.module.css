@@ -1,0 +1,23 @@
+.navbar {
+    grid-area: n;
+    background-color: #d4dae8;
+    text-align: start;
+    margin-left: 76px;
+    margin-top: 10px;
+}
+
+.content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.navbar img {
+    width: 30px;
+    height: 30px
+}
+
+.title {
+    margin-left: 8px;
+}
