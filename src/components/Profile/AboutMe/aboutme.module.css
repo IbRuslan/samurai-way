@@ -1,0 +1,49 @@
+.aboutme {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 900px;
+    height: 320px;
+    background-color: #d4dae8;
+    margin: 10px 0 10px 20px;
+}
+
+/* #d4dae8 */
+
+.foto {
+    width: 280px;
+    height: 280px;
+    margin-bottom: 18px;
+    margin-left: 15px;
+    text-align: center;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.ava {
+    width: 250px;
+    margin-top: 14px;
+    display: inline-block;
+}
+
+.about {
+    width: 590px;
+    height: 280px;
+    margin: 0 0 16px 10px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.myname {
+    font-size: 25px;
+    margin: 5px 0 5px 5px;
+}
+
+.character {
+    width: 590px;
+    height: 180px;
+    margin-top: 10px;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    background-color: #FFFFFF;
+}
