@@ -1,14 +1,15 @@
 import React from 'react';
 import './App.css';
-import {Header} from "antd/es/layout/layout";
-import {Technologies} from "./components/Technologies";
+import {Header} from "./components/Header/Header";
+import {Profile} from "./components/Profile/Profile";
+import {Navbar} from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
-     Hello, samurai! Let's go!
-        <Header />
-        <Technologies />
+        <Header/>
+        <Navbar/>
+        <Profile/>
     </div>
   );
 }
