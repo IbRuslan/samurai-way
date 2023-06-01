@@ -1,5 +1,5 @@
 import React from "react";
-import s from './profile.module.css'
+import s from './profile.module.css';
 
 export function Profile() {
     return (
