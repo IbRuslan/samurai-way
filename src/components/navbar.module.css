@@ -20,4 +20,15 @@
 
 .title {
     margin-left: 8px;
+    color: #304c6c;
+    text-decoration: none
+}
+
+.title:hover {
+    color: #0d2342;
+}
+
+.active {
+    color: #0d2342;
+    font-weight: bold;
 }

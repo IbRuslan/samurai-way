@@ -43,7 +43,7 @@
     width: 590px;
     height: 180px;
     margin-top: 10px;
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
     background-color: #FFFFFF;
 }
