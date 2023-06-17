@@ -1,11 +1,18 @@
 import React from 'react'
 import s from './Post.module.css'
 
-export const Post = ()=>{
+type PostType = {
+    messages: string
+    likesCount: number
+}
+
+export const Post: React.FC<PostType> = ({messages, likesCount})=>{
     return (
         <div>
-            <img />
-            post 1
+            <div>
+                <img />
+            </div>
+            <div>{messages} <span>{likesCount}</span>  </div>
         </div>
     )
 }
