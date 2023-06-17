@@ -1,30 +1,32 @@
 import React from 'react';
 import s from './messages.module.css'
 import {NavLink} from "react-router-dom";
+import { Message } from './Message/Message';
+import {MessageItem} from "./MessageItem/MessageItem";
 
 
-type MessagesType = {
-    id: number
-    name: string
-}
-
-const MessageItem: React.FC<MessagesType> = ({id, name}) => {
-    return (
-        <div>
-            <NavLink to={"/messages/" + id}>{name}</NavLink>
-        </div>
-    )
-}
-
-type MessageType = {
-    message: string
-}
-
-const Message: React.FC<MessageType> = ({message}) => {
-    return (
-        <div className={s.dialog}>{message}</div>
-    )
-}
+// type MessagesType = {
+//     id: number
+//     name: string
+// }
+//
+// const MessageItem: React.FC<MessagesType> = ({id, name}) => {
+//     return (
+//         <div>
+//             <NavLink to={"/messages/" + id}>{name}</NavLink>
+//         </div>
+//     )
+// }
+//
+// type MessageType = {
+//     message: string
+// }
+//
+// const Message: React.FC<MessageType> = ({message}) => {
+//     return (
+//         <div className={s.dialog}>{message}</div>
+//     )
+// }
 
 export const Messages = () => {
 
