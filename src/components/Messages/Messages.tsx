@@ -3,46 +3,15 @@ import s from './messages.module.css'
 import {NavLink} from "react-router-dom";
 import { Message } from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
+import {DialogsData, MessagesData} from "../../index";
 
+type MessagesType = {
+    dialogsData: DialogsData[]
+    messagesData: MessagesData[]
+}
 
-// type MessagesType = {
-//     id: number
-//     name: string
-// }
-//
-// const MessageItem: React.FC<MessagesType> = ({id, name}) => {
-//     return (
-//         <div>
-//             <NavLink to={"/messages/" + id}>{name}</NavLink>
-//         </div>
-//     )
-// }
-//
-// type MessageType = {
-//     message: string
-// }
-//
-// const Message: React.FC<MessageType> = ({message}) => {
-//     return (
-//         <div className={s.dialog}>{message}</div>
-//     )
-// }
+export const Messages: React.FC<MessagesType> = ({dialogsData, messagesData}) => {
 
-export const Messages = () => {
-
-    let dialogsData = [
-        {id: 1, name: 'Ruslan'},
-        {id: 2, name: 'Sergey'},
-        {id: 3, name: 'Sherzod'},
-        {id: 4, name: 'Milana'},
-        {id: 5, name: 'Miraziz'}
-    ]
-
-    let messagesData = [
-        {id: 1, message: 'He'},
-        {id: 2, message: 'How are yo'},
-        {id: 3, message: 'Yo'}
-    ]
 
     let dialogsElements = dialogsData
         .map(d => <MessageItem name={d.name} id={d.id}/>)

@@ -8,16 +8,23 @@ import {Messages} from "./components/Messages/Messages";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import {DialogsData, MessagesData, Posts} from "./index";
 
-function App() {
+export type AppType = {
+    posts:Posts[]
+    dialogsData: DialogsData[]
+    messagesData: MessagesData[]
+}
+
+const App: React.FC<AppType> = ({posts, dialogsData, messagesData}) => {
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/messages' component={Messages}/>
+                    <Route path='/profile' render={()=> <Profile posts={posts}/>}/>
+                    <Route path='/messages' render={ ()=> <Messages dialogsData={dialogsData} messagesData={messagesData}/>}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>
                     <Route path='/settings' component={Settings}/>

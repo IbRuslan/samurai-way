@@ -3,19 +3,15 @@ import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 import {Button} from "../../SuperButton/Button";
 import imgAva from "../../../img/avatar/ava.jpg";
+import {Posts} from "../../../index";
 
+type PostsType = {
+    posts:Posts[]
+}
 
+export const MyPosts:React.FC<PostsType> = ({posts})=>{
 
-export const MyPosts = ()=>{
-
-    let postsData = [
-        {id: 1, message: 'Hi, how are you', likesCount: 12},
-        {id: 2, message: 'Im happy', likesCount: 4},
-        {id: 3, message: 'Its my first post', likesCount: 16}
-    ]
-
-    let postElements = postsData
-        .map(p => <Post messages={p.message} likesCount={p.likesCount}/>)
+    let postElements = posts.map( (p) => <Post messages={p.message} likesCount={p.likesCount}/>)
 
     return (
         <div className={s.container}>
