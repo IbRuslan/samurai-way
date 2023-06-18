@@ -2,10 +2,10 @@ import React from "react";
 import s from './profile.module.css';
 import {AboutMe} from "./AboutMe/AboutMe";
 import {MyPosts} from "./MyPosts/MyPosts";
-import {Posts} from "../../index";
+import {PostsType} from "../../state/state";
 
 type ProfileType = {
-    posts:Posts[]
+    posts: PostsType[]
 }
 
 export const Profile: React.FC<ProfileType> = ({posts}) => {

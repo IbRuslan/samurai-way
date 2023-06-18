@@ -3,13 +3,13 @@ import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 import {Button} from "../../SuperButton/Button";
 import imgAva from "../../../img/avatar/ava.jpg";
-import {Posts} from "../../../index";
+import {PostsType} from "../../../state/state";
 
-type PostsType = {
-    posts:Posts[]
+type PostType = {
+    posts: PostsType[]
 }
 
-export const MyPosts:React.FC<PostsType> = ({posts})=>{
+export const MyPosts:React.FC<PostType> = ({posts})=>{
 
     let postElements = posts.map( (p) => <Post messages={p.message} likesCount={p.likesCount}/>)
 
