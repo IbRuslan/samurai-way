@@ -10,7 +10,11 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import state from "./state/state";
 
-const App = () => {
+type AppType = {
+    addPost: (post: string) => void
+}
+
+const App: React.FC<AppType>  = ({addPost}) => {
 
     return (
         <BrowserRouter>
@@ -18,7 +22,7 @@ const App = () => {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' render={()=> <Profile posts={state.profilePage.posts}/>}/>
+                    <Route path='/profile' render={() => <Profile posts={state.profilePage.posts} addPost={addPost}/> } />
                     <Route path='/messages' render={ ()=> <Messages messagesUsers={state.messagesPage.messagesUsers} messagesData={state.messagesPage.messagesData}/>}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>

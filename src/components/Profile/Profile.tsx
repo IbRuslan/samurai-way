@@ -5,14 +5,15 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {PostsType} from "../../state/state";
 
 type ProfileType = {
-    posts: PostsType[]
+    posts: Array<PostsType>
+    addPost: (post: string) => void
 }
 
-export const Profile: React.FC<ProfileType> = ({posts}) => {
+export const Profile: React.FC<ProfileType> = ({posts, addPost}) => {
     return (
         <div className={s.profile}>
             <AboutMe/>
-            <MyPosts posts={posts}/>
+            <MyPosts posts={posts} addPost={addPost}/>
         </div>
     )
 }

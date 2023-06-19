@@ -7,11 +7,21 @@ import {PostsType} from "../../../state/state";
 
 type PostType = {
     posts: PostsType[]
+    addPost: (post: string) => void
 }
 
-export const MyPosts:React.FC<PostType> = ({posts})=>{
+export const MyPosts:React.FC<PostType> = ({posts, addPost})=>{
 
     let postElements = posts.map( (p) => <Post messages={p.message} likesCount={p.likesCount}/>)
+
+    let newPostElement = React.createRef<HTMLInputElement>();
+
+    let addPostHandler = () => {
+        if (newPostElement.current) {
+            let text = newPostElement.current.value;
+            addPost(text)
+        }
+    }
 
     return (
         <div className={s.container}>
@@ -20,10 +30,10 @@ export const MyPosts:React.FC<PostType> = ({posts})=>{
                     <img src={imgAva} alt=''/>
                 </div>
                 <div className={s.addPost}>
-                    <input type="Добавить пост"/>
+                    <input ref={newPostElement} />
                 </div>
                 <div className={s.button}>
-                    <Button name={'Add'} callback={()=>{}}/>
+                    <Button name={'Add'} callback={addPostHandler}/>
                 </div>
             </div>
             {postElements}
