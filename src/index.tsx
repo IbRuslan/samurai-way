@@ -1,10 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import {addPost} from "./state/state";
+import {rerenderEntireTree} from "./render";
 
-ReactDOM.render(
-    <App addPost={addPost}/>,
-  document.getElementById('root')
-);
+rerenderEntireTree();

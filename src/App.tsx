@@ -22,7 +22,7 @@ const App: React.FC<AppType>  = ({addPost}) => {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' render={() => <Profile posts={state.profilePage.posts} addPost={addPost}/> } />
+                    <Route path='/profile' render={ ()=> <Profile posts={state.profilePage.posts} addPost={addPost}/> } />
                     <Route path='/messages' render={ ()=> <Messages messagesUsers={state.messagesPage.messagesUsers} messagesData={state.messagesPage.messagesData}/>}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>
