@@ -11,10 +11,11 @@ import {Settings} from "./components/Settings/Settings";
 import state from "./state/state";
 
 type AppType = {
-    addPost: (post: string) => void
+    addPost: () => void
+    updateNewPost: (newText: string) => void
 }
 
-const App: React.FC<AppType>  = ({addPost}) => {
+const App: React.FC<AppType>  = ({addPost, updateNewPost}) => {
 
     return (
         <BrowserRouter>
@@ -22,7 +23,7 @@ const App: React.FC<AppType>  = ({addPost}) => {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' render={ ()=> <Profile posts={state.profilePage.posts} addPost={addPost}/> } />
+                    <Route path='/profile' render={ ()=> <Profile profilePage={state.profilePage} addPost={addPost} updateNewPost={updateNewPost}/> } />
                     <Route path='/messages' render={ ()=> <Messages messagesUsers={state.messagesPage.messagesUsers} messagesData={state.messagesPage.messagesData}/>}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>

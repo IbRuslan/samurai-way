@@ -18,6 +18,7 @@ export type MessagesType = {
 
 export type ProfilePageType = {
     posts: PostsType[]
+    newPostText: string
 }
 
 export type MessagesPageType = {
@@ -36,7 +37,8 @@ let state: RootStateType = {
             {id: 1, message: 'Hi, how are you', likesCount: 12},
             {id: 2, message: 'Im happy', likesCount: 4},
             {id: 3, message: 'Its my first post', likesCount: 16}
-        ]
+        ],
+        newPostText: 'it-kamasutra'
     },
     messagesPage: {
         messagesUsers: [
@@ -54,13 +56,19 @@ let state: RootStateType = {
     }
 }
 
-export let addPost = (post: string) => {
+export let addPost = () => {
     let newPost = {
         id: state.profilePage.posts.length + 1,
-        message: post,
+        message: state.profilePage.newPostText,
         likesCount: 0
     }
     state.profilePage.posts.unshift(newPost);
+    state.profilePage.newPostText = ''
+    rerenderEntireTree();
+}
+
+export let updateNewPost = (newText: string) => {
+    state.profilePage.newPostText = newText;
     rerenderEntireTree();
 }
 

@@ -2,18 +2,23 @@ import React from "react";
 import s from './profile.module.css';
 import {AboutMe} from "./AboutMe/AboutMe";
 import {MyPosts} from "./MyPosts/MyPosts";
-import {PostsType} from "../../state/state";
+import {ProfilePageType} from "../../state/state";
 
 type ProfileType = {
-    posts: Array<PostsType>
-    addPost: (post: string) => void
+    profilePage: ProfilePageType
+    addPost: () => void
+    updateNewPost: (newText: string) => void
 }
 
-export const Profile: React.FC<ProfileType> = ({posts, addPost}) => {
+export const Profile: React.FC<ProfileType> = ({updateNewPost, profilePage, addPost}) => {
     return (
         <div className={s.profile}>
             <AboutMe/>
-            <MyPosts posts={posts} addPost={addPost}/>
+            <MyPosts posts={profilePage.posts}
+                     newPostText={profilePage.newPostText}
+                     addPost={addPost}
+                     updateNewPost={updateNewPost}
+            />
         </div>
     )
 }

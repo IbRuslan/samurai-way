@@ -7,20 +7,25 @@ import {PostsType} from "../../../state/state";
 
 type PostType = {
     posts: PostsType[]
-    addPost: (post: string) => void
+    addPost: () => void
+    newPostText: string
+    updateNewPost: (newText: string) => void
 }
 
-export const MyPosts:React.FC<PostType> = ({posts, addPost})=>{
+export const MyPosts:React.FC<PostType> = ({updateNewPost, posts, newPostText, addPost})=>{
 
     let postElements = posts.map( (p) => <Post messages={p.message} likesCount={p.likesCount}/>)
 
     let newPostElement = React.createRef<HTMLInputElement>();
 
     let addPostHandler = () => {
+        addPost();
+    }
+
+    const onPostChange = () => {
         if (newPostElement.current) {
-            let text = newPostElement.current.value;
-            addPost(text)
-            newPostElement.current.value = '';
+        let text = newPostElement.current.value;
+        updateNewPost(text)
         }
     }
 
@@ -31,7 +36,7 @@ export const MyPosts:React.FC<PostType> = ({posts, addPost})=>{
                     <img src={imgAva} alt=''/>
                 </div>
                 <div className={s.addPost}>
-                    <input ref={newPostElement} />
+                    <input onChange={onPostChange} ref={newPostElement} value={newPostText} />
                 </div>
                 <div className={s.button}>
                     <Button name={'Add'} callback={addPostHandler}/>
