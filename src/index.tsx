@@ -1,5 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
-import {rerenderEntireTree} from "./render";
+import App from './App';
+import store from "./state/state";
 
-rerenderEntireTree();
+export let rerenderEntireTree = () => {
+    ReactDOM.render(
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>,
+        document.getElementById('root')
+    );
+}
+rerenderEntireTree()
+store.subscribe(rerenderEntireTree)

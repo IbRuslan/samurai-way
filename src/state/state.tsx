@@ -1,4 +1,5 @@
-import {rerenderEntireTree} from "../render";
+import {addPostActionType, profileReducer, UpdateNewPostActionType} from "./profile-reducer";
+import {addMessageActionType, messagesReducer, updateNewMessagesActionType} from "./messages-reducer";
 
 export type PostsType = {
     id: number
@@ -24,54 +25,68 @@ export type ProfilePageType = {
 export type MessagesPageType = {
     messagesUsers: MessagesUsers[]
     messagesData: MessagesType[]
+    newMessagesText: string
 }
 
-type RootStateType = {
+export type RootStateType = {
     profilePage: ProfilePageType
     messagesPage: MessagesPageType
 }
 
-let state: RootStateType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hi, how are you', likesCount: 12},
-            {id: 2, message: 'Im happy', likesCount: 4},
-            {id: 3, message: 'Its my first post', likesCount: 16}
-        ],
-        newPostText: 'it-kamasutra'
+export type ActionType =
+    addPostActionType | UpdateNewPostActionType | addMessageActionType | updateNewMessagesActionType
+
+type StoreType = {
+    _state: RootStateType
+    getState: () => RootStateType
+    _callSubscriber: () => void
+    dispatch: (action: ActionType) => void
+    subscribe: (observer: () => void) => void
+}
+
+
+const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hi, how are you', likesCount: 12},
+                {id: 2, message: 'Im happy', likesCount: 4},
+                {id: 3, message: 'Its my first post', likesCount: 16}
+            ],
+            newPostText: ''
+        },
+        messagesPage: {
+            messagesUsers: [
+                {id: 1, name: 'Ruslan'},
+                {id: 2, name: 'Sergey'},
+                {id: 3, name: 'Sherzod'},
+                {id: 4, name: 'Milana'},
+                {id: 5, name: 'Miraziz'}
+            ],
+            messagesData: [
+                {id: 1, message: 'He'},
+                {id: 2, message: 'How are yo'},
+                {id: 3, message: 'Yo'}
+            ],
+            newMessagesText: ''
+        }
     },
-    messagesPage: {
-        messagesUsers: [
-            {id: 1, name: 'Ruslan'},
-            {id: 2, name: 'Sergey'},
-            {id: 3, name: 'Sherzod'},
-            {id: 4, name: 'Milana'},
-            {id: 5, name: 'Miraziz'}
-        ],
-        messagesData: [
-            {id: 1, message: 'He'},
-            {id: 2, message: 'How are yo'},
-            {id: 3, message: 'Yo'}
-        ]
+    getState() {
+        return this._state
+    },
+    _callSubscriber() {
+        console.log('state changed')
+    },
+    dispatch (action) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
+
+        this._callSubscriber()
+    },
+    subscribe (observer: () => void)  {
+        this._callSubscriber = observer
     }
+
 }
-
-export let addPost = () => {
-    let newPost = {
-        id: state.profilePage.posts.length + 1,
-        message: state.profilePage.newPostText,
-        likesCount: 0
-    }
-    state.profilePage.posts.unshift(newPost);
-    state.profilePage.newPostText = ''
-    rerenderEntireTree();
-}
-
-export let updateNewPost = (newText: string) => {
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree();
-}
-
-console.log(state.profilePage.posts.length)
-
-export default state
+export default store

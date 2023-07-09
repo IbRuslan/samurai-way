@@ -1,30 +1,52 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './messages.module.css'
 import { Message } from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
-import {MessagesType, MessagesUsers} from "../../state/state";
+import {ActionType, MessagesPageType} from "../../state/state";
+import {Button} from "../SuperButton/Button";
+import {addMessageActionCreator, updateNewMessagesActionText} from "../../state/messages-reducer";
 
 type MessageType = {
-    messagesUsers: MessagesUsers[]
-    messagesData: MessagesType[]
+    messagesPage: MessagesPageType
+    dispatch: (action: ActionType) => void
 }
 
-export const Messages: React.FC<MessageType> = ({messagesUsers, messagesData}) => {
+export const Messages: React.FC<MessageType> = ({messagesPage, dispatch}) => {
 
 
-    let dialogsElements = messagesUsers
-        .map(d => <MessageItem name={d.name} id={d.id}/>)
+    const dialogsUsers = messagesPage.messagesUsers
+        .map(d => <MessageItem key={d.id} name={d.name} id={d.id}/>)
 
-    let messagesElements = messagesData
-        .map(m => <Message message={m.message}/>)
+    const dialogsMessages = messagesPage.messagesData
+        .map(m => <Message key={m.id} message={m.message}/>)
+
+    const newMessagesText = messagesPage.newMessagesText
+
+    const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const messages = e.currentTarget.value
+        dispatch(updateNewMessagesActionText(messages))
+    }
+    const onSendButtonHandler = () => {
+        dispatch(addMessageActionCreator())
+    }
 
     return (
         <div className={s.messages}>
             <div className={s.messages_users} >
-                {dialogsElements}
+                {dialogsUsers}
             </div>
             <div className={s.messages_dialogs}>
-                {messagesElements}
+                <div>
+                    {dialogsMessages}
+                </div>
+                <div>
+                    <textarea
+                        placeholder={'Enter your messages'}
+                        value={newMessagesText}
+                        onChange={onChangeTextareaHandler}>
+                    </textarea>
+                    <Button name={'Send'} callback={onSendButtonHandler}/>
+                </div>
             </div>
         </div>
     );

@@ -7,6 +7,10 @@ type MessageType = {
 
 export const Message: React.FC<MessageType> = ({message}) => {
     return (
-        <div className={s.dialog}>{message}</div>
+        <div className={s.dialog}>
+            <div>{message}</div>
+            <div>
+            </div>
+        </div>
     )
 }

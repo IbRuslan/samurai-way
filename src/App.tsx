@@ -8,14 +8,14 @@ import {Messages} from "./components/Messages/Messages";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import state from "./state/state";
+import {ActionType, RootStateType} from "./state/state";
 
 type AppType = {
-    addPost: () => void
-    updateNewPost: (newText: string) => void
+    state: RootStateType
+    dispatch: (action: ActionType) => void
 }
 
-const App: React.FC<AppType>  = ({addPost, updateNewPost}) => {
+const App: React.FC<AppType>  = ({state, dispatch}) => {
 
     return (
         <BrowserRouter>
@@ -23,8 +23,14 @@ const App: React.FC<AppType>  = ({addPost, updateNewPost}) => {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' render={ ()=> <Profile profilePage={state.profilePage} addPost={addPost} updateNewPost={updateNewPost}/> } />
-                    <Route path='/messages' render={ ()=> <Messages messagesUsers={state.messagesPage.messagesUsers} messagesData={state.messagesPage.messagesData}/>}/>
+                    <Route path='/profile' render={ ()=> <Profile
+                        profilePage={state.profilePage}
+                        dispatch={dispatch}/>}
+                    />
+                    <Route path='/messages' render={ ()=> <Messages
+                        dispatch={dispatch}
+                        messagesPage={state.messagesPage}/>}
+                    />
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>
                     <Route path='/settings' component={Settings}/>
