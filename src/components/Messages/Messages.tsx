@@ -1,10 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './messages.module.css'
 import { Message } from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
 import {ActionType, MessagesPageType} from "../../redux/store";
-import {Button} from "../SuperButton/Button";
-import {addMessageActionCreator, updateNewMessagesActionText} from "../../redux/messages-reducer";
+import {MessageInputContainer} from "./MessageInput/MessageInputContainer";
 
 type MessageType = {
     messagesPage: MessagesPageType
@@ -20,16 +19,6 @@ export const Messages: React.FC<MessageType> = ({messagesPage, dispatch}) => {
     const dialogsMessages = messagesPage.messagesData
         .map(m => <Message key={m.id} message={m.message}/>)
 
-    const newMessagesText = messagesPage.newMessagesText
-
-    const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const messages = e.currentTarget.value
-        dispatch(updateNewMessagesActionText(messages))
-    }
-    const onSendButtonHandler = () => {
-        dispatch(addMessageActionCreator())
-    }
-
     return (
         <div className={s.messages}>
             <div className={s.messages_users} >
@@ -39,14 +28,7 @@ export const Messages: React.FC<MessageType> = ({messagesPage, dispatch}) => {
                 <div>
                     {dialogsMessages}
                 </div>
-                <div>
-                    <textarea
-                        placeholder={'Enter your messages'}
-                        value={newMessagesText}
-                        onChange={onChangeTextareaHandler}>
-                    </textarea>
-                    <Button name={'Send'} callback={onSendButtonHandler}/>
-                </div>
+                <MessageInputContainer newMessagesText={messagesPage.newMessagesText} dispatch={dispatch} />
             </div>
         </div>
     );

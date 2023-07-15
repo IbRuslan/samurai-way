@@ -3,29 +3,38 @@ import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 import {Button} from "../../SuperButton/Button";
 import imgAva from "../../../img/avatar/ava.jpg";
-import {ActionType, PostsType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostActionText} from "../../../redux/profile-reducer";
+import {PostsType} from "../../../redux/store";
 
 type PostType = {
+    updateNewPostText: (text: string) => void
+    addPost: () => void
     posts: PostsType[]
     newPostText: string
-    dispatch: (action: ActionType) => void
 }
 
-export const MyPosts: React.FC<PostType> = ({dispatch, posts, newPostText}) => {
+export const MyPosts: React.FC<PostType> = (
+    {
+        posts,
+        newPostText,
+        ...props
+    }
+    ) => {
 
-    let postElements = posts.map((p) => <Post key={p.id} messages={p.message} likesCount={p.likesCount}/>)
+    let postElements = posts.map((p) =>
+        <Post key={p.id} messages={p.message} likesCount={p.likesCount}/>)
 
     let newPostElement = React.createRef<HTMLInputElement>();
 
     let addPostHandler = () => {
-        dispatch(addPostActionCreator())
+        if (newPostText.trim() !== '') {
+            props.addPost()
+        }
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            dispatch(updateNewPostActionText(text))
+            props.updateNewPostText(text)
         }
     }
 
