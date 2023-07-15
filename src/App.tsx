@@ -8,14 +8,13 @@ import {Messages} from "./components/Messages/Messages";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ActionType, RootStateType} from "./redux/store";
+import {RootStateType} from "./redux/redux-store";
 
 type AppType = {
     state: RootStateType
-    dispatch: (action: ActionType) => void
 }
 
-const App: React.FC<AppType>  = ({state, dispatch}) => {
+const App: React.FC<AppType>  = ({state}) => {
 
     return (
         <BrowserRouter>
@@ -23,14 +22,8 @@ const App: React.FC<AppType>  = ({state, dispatch}) => {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' render={ ()=> <Profile
-                        profilePage={state.profilePage}
-                        dispatch={dispatch}/>}
-                    />
-                    <Route path='/messages' render={ ()=> <Messages
-                        dispatch={dispatch}
-                        messagesPage={state.messagesPage}/>}
-                    />
+                    <Route path='/profile' render={ ()=> <Profile/>}/>
+                    <Route path='/messages' render={ ()=> <Messages messagesPage={state.messagesPage}/>}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>
                     <Route path='/settings' component={Settings}/>

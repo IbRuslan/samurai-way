@@ -2,15 +2,14 @@ import React from 'react';
 import s from './messages.module.css'
 import { Message } from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
-import {ActionType, MessagesPageType} from "../../redux/store";
 import {MessageInputContainer} from "./MessageInput/MessageInputContainer";
+import {MessagesPageType} from "../../redux/messages-reducer";
 
 type MessageType = {
     messagesPage: MessagesPageType
-    dispatch: (action: ActionType) => void
 }
 
-export const Messages: React.FC<MessageType> = ({messagesPage, dispatch}) => {
+export const Messages: React.FC<MessageType> = ({messagesPage}) => {
 
 
     const dialogsUsers = messagesPage.messagesUsers
@@ -28,7 +27,7 @@ export const Messages: React.FC<MessageType> = ({messagesPage, dispatch}) => {
                 <div>
                     {dialogsMessages}
                 </div>
-                <MessageInputContainer newMessagesText={messagesPage.newMessagesText} dispatch={dispatch} />
+                <MessageInputContainer/>
             </div>
         </div>
     );

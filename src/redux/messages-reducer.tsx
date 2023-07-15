@@ -1,6 +1,22 @@
-import {ActionType, MessagesPageType} from "./store";
+import {ActionType} from "./store";
 
-const initialState = {
+export type MessagesUsers = {
+    id: number
+    name: string
+}
+
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+export type MessagesPageType = {
+    messagesUsers: MessagesUsers[]
+    messagesData: MessagesType[]
+    newMessagesText: string
+}
+
+const initialState: MessagesPageType = {
     messagesUsers: [
         {id: 1, name: 'Ruslan'},
         {id: 2, name: 'Sergey'},

@@ -3,7 +3,7 @@ import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 import {Button} from "../../SuperButton/Button";
 import imgAva from "../../../img/avatar/ava.jpg";
-import {PostsType} from "../../../redux/store";
+import {PostsType} from "../../../redux/profile-reducer";
 
 type PostType = {
     updateNewPostText: (text: string) => void
