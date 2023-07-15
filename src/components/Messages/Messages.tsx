@@ -2,9 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './messages.module.css'
 import { Message } from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
-import {ActionType, MessagesPageType} from "../../state/state";
+import {ActionType, MessagesPageType} from "../../redux/store";
 import {Button} from "../SuperButton/Button";
-import {addMessageActionCreator, updateNewMessagesActionText} from "../../state/messages-reducer";
+import {addMessageActionCreator, updateNewMessagesActionText} from "../../redux/messages-reducer";
 
 type MessageType = {
     messagesPage: MessagesPageType

@@ -3,8 +3,8 @@ import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 import {Button} from "../../SuperButton/Button";
 import imgAva from "../../../img/avatar/ava.jpg";
-import {ActionType, PostsType} from "../../../state/state";
-import {addPostActionCreator, updateNewPostActionText} from "../../../state/profile-reducer";
+import {ActionType, PostsType} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostActionText} from "../../../redux/profile-reducer";
 
 type PostType = {
     posts: PostsType[]

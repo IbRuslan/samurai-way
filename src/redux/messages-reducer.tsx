@@ -1,6 +1,22 @@
-import {ActionType, MessagesPageType} from "./state";
+import {ActionType, MessagesPageType} from "./store";
 
-export const messagesReducer = (state: MessagesPageType, action: ActionType) => {
+const initialState = {
+    messagesUsers: [
+        {id: 1, name: 'Ruslan'},
+        {id: 2, name: 'Sergey'},
+        {id: 3, name: 'Sherzod'},
+        {id: 4, name: 'Milana'},
+        {id: 5, name: 'Miraziz'}
+    ],
+    messagesData: [
+        {id: 1, message: 'He'},
+        {id: 2, message: 'How are yo'},
+        {id: 3, message: 'Yo'}
+    ],
+    newMessagesText: ''
+}
+
+export const messagesReducer = (state: MessagesPageType = initialState, action: ActionType): MessagesPageType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessages = {

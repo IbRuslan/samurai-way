@@ -75,7 +75,7 @@ const store: StoreType = {
         return this._state
     },
     _callSubscriber() {
-        console.log('state changed')
+        console.log('redux changed')
     },
     dispatch (action) {
 
