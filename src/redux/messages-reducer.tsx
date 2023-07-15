@@ -39,12 +39,9 @@ export const messagesReducer = (state: MessagesPageType = initialState, action: 
                 id: state.messagesData.length + 1,
                 message: state.newMessagesText
             }
-            state.messagesData.push(newMessages)
-            state.newMessagesText = ''
-            break;
+            return {...state, messagesData: [...state.messagesData, newMessages], newMessagesText: ''}
         case 'UPDATE-NEW-MESSAGES-TEXT':
-            state.newMessagesText = action.messagesText;
-            break;
+            return {...state, newMessagesText: action.messagesText}
     }
     return state
 }
