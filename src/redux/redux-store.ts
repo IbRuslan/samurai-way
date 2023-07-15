@@ -20,7 +20,7 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionType) => void
     subscribe: (observer: () => void) => void
-}
+} 
 
 const store = createStore(reducers)
 

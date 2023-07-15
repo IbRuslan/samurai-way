@@ -1,24 +1,23 @@
 import React from 'react';
 import {MessageInput} from "./MessageInput";
+import {connect} from "react-redux";
 import {addMessageActionCreator, updateNewMessagesActionText} from "../../../redux/messages-reducer";
-import StoreContext from "../../../StoreContext";
+import {ActionType, RootStateType} from "../../../redux/redux-store";
 
-export const MessageInputContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {store => {
-                const newMessagesText = store.getState().messagesPage.newMessagesText
-                const addMessage = () => {
-                    store.dispatch(addMessageActionCreator())
-                }
-                const updateNewMessagesText = (text: string) => {
-                    store.dispatch(updateNewMessagesActionText(text))
-                }
+const mapStateToProps = (state: RootStateType) => {
+    return {
+        newMessagesText: state.messagesPage.newMessagesText
+    }
+}
+const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+    return {
+        updateNewMessagesText: (text: string) => {
+            dispatch(updateNewMessagesActionText(text))
+        },
+        addMessage: () => {
+            dispatch(addMessageActionCreator())
+        }
+    }
+}
 
-                return <MessageInput newMessagesText={newMessagesText}
-                                     addMessage={addMessage}
-                                     updateNewMessagesText={updateNewMessagesText}/>
-            }}
-        </StoreContext.Consumer>
-    );
-};
+export const MessageInputContainer = connect(mapStateToProps, mapDispatchToProps)(MessageInput);
