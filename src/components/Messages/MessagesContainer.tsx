@@ -5,7 +5,6 @@ import {ActionType, RootStateType} from "../../redux/redux-store";
 import {Messages} from "./Messages";
 
 const mapStateToProps = (state: RootStateType) => {
-    console.log(state.messagesPage)
     return {
         messagesPage: state.messagesPage,
         newMessagesText: state.messagesPage.newMessagesText

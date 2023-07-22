@@ -8,6 +8,6 @@ import {Provider} from "react-redux";
 
 ReactDOM.render(
     <Provider store={store}>
-        <App state={store.getState()}/>
+        <App />
     </Provider>,
     document.getElementById('root'))

@@ -1,5 +1,3 @@
-import {ActionType} from "./store";
-
 export type MessagesUsers = {
     id: number
     name: string
@@ -32,7 +30,9 @@ const initialState: MessagesPageType = {
     newMessagesText: ''
 }
 
-export const messagesReducer = (state: MessagesPageType = initialState, action: ActionType): MessagesPageType => {
+type ActionMessagesType = addMessageActionType | updateNewMessagesActionType
+
+export const messagesReducer = (state: MessagesPageType = initialState, action: ActionMessagesType): MessagesPageType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessages = {
