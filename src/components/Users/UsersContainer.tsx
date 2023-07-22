@@ -7,7 +7,7 @@ import {followAC, setUsersAC, unFollowAC, UsersType} from "../../redux/users-red
 const mapStateToProps = (state: RootStateType) => {
 
     return {
-        users: state.usersPage.users
+        users: state.usersPage.items
     }
 }
 

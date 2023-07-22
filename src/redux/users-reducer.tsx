@@ -1,43 +1,35 @@
-export type UsersType = {
-    id: number
-    followed: boolean
-    fullName: string
-    status: string
-    location: {city: string, country: string}
-    photoUrl: string
+export interface UsersType {
+    name: string;
+    id: number;
+    photos: {
+        small: string | null;
+        large: string | null;
+    };
+    status: string | null;
+    followed: boolean;
 }
 
-export type UsersPageType = {
-    users: Array<UsersType>
+export interface UsersPageType {
+    items: UsersType[];
+    totalCount: number;
+    error: string | null;
 }
 
 const initialState : UsersPageType = {
-    users: [
+    "items": [
         {
-            id: 1,
-            photoUrl: 'https://klike.net/uploads/posts/2019-03/1551596732_15.jpg',
-            followed: false,
-            fullName: 'Dmitry',
-            status: 'I am a boss',
-            location: {city: 'Minsk', country: 'Belarus'}
+            "name": "Shubert",
+            "id": 1,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
         },
-        {
-            id: 2,
-            photoUrl: 'https://klike.net/uploads/posts/2019-03/1551596770_39.jpg',
-            followed: false,
-            fullName: 'Evgeniy',
-            status: 'I am a teacher',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-        {
-            id: 3,
-            photoUrl: 'https://gagaru.club/uploads/posts/2023-02/1675951448_gagaru-club-p-krasivie-cherti-litsa-u-muzhchin-pinterest-33.jpg',
-            followed: true,
-            fullName: 'Sergey',
-            status: 'I am a student',
-            location: {city: 'Moscow', country: 'Russian'}
-        }
-    ]
+    ],
+    "totalCount": 30,
+    "error": null
 }
 
 export type ActionUsersType = followAT | unFollowAT | setUsersAT
@@ -47,11 +39,11 @@ export const userReducer = (state: UsersPageType = initialState, action: ActionU
     switch (action.type) {
         case "FOLLOW":
             debugger
-            return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: true} : u)}
+            return {...state, items: state.items.map(u => u.id === action.id ? {...u, followed: true} : u)}
         case "UNFOLLOW":
-            return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: false} : u)}
+            return {...state, items: state.items.map(u => u.id === action.id ? {...u, followed: false} : u)}
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, items: [...state.items, ...action.users]}
         default:
             return state
     }
