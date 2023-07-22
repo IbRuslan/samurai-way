@@ -8,6 +8,7 @@ import {Users} from "./components/Users/Users";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {MessageContainer} from "./components/Messages/MessagesContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 type AppType = {
 }
@@ -22,7 +23,7 @@ const App: React.FC<AppType>  = () => {
                 <div className="content">
                     <Route path='/profile' render={ ()=> <Profile/>}/>
                     <Route path='/messages' render={ ()=> <MessageContainer/>}/>
-                    <Route path='/users' component={Users}/>
+                    <Route path='/users' component={UsersContainer}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
                 </div>

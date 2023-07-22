@@ -30,7 +30,7 @@ const initialState: MessagesPageType = {
     newMessagesText: ''
 }
 
-type ActionMessagesType = addMessageActionType | updateNewMessagesActionType
+export type ActionMessagesType = addMessageActionType | updateNewMessagesActionType
 
 export const messagesReducer = (state: MessagesPageType = initialState, action: ActionMessagesType): MessagesPageType => {
     switch (action.type) {

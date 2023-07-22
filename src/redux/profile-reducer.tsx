@@ -18,7 +18,7 @@ const initialState: ProfilePageType = {
     newPostText: ''
 }
 
-type ActionProfileType = addPostActionType | UpdateNewPostActionType
+export type ActionProfileType = addPostActionType | UpdateNewPostActionType
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
     switch (action.type) {
