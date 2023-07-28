@@ -23,7 +23,7 @@ export const MyPosts: React.FC<PostType> = (
     let postElements = posts.map((p) =>
         <Post key={p.id} messages={p.message} likesCount={p.likesCount}/>)
 
-    let newPostElement = React.createRef<HTMLInputElement>();
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPostHandler = () => {
         if (newPostText.trim() !== '') {
@@ -45,13 +45,13 @@ export const MyPosts: React.FC<PostType> = (
                     <img src={imgAva} alt=''/>
                 </div>
                 <div className={s.addPost}>
-                    <input onChange={onPostChange} ref={newPostElement} value={newPostText}/>
+                    <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}/>
                 </div>
                 <div className={s.button}>
                     <Button name={'Add'} callback={addPostHandler}/>
                 </div>
             </div>
-            {postElements}
+                {postElements}
         </div>
     )
 }

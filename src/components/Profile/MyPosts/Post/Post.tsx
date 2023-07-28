@@ -1,5 +1,6 @@
 import React from 'react'
 import s from './Post.module.css'
+import imgAva from "../../../../img/avatar/ava.jpg";
 
 type PostType = {
     messages: string
@@ -8,11 +9,11 @@ type PostType = {
 
 export const Post: React.FC<PostType> = ({messages, likesCount})=>{
     return (
-        <div>
-            <div>
-                <img />
+        <div className={s.post_container}>
+            <div className={s.avatar}>
+                <img src={imgAva} alt=''/>
             </div>
-            <div>{messages} <span>{likesCount}</span>  </div>
+            <div className={s.message}>{messages} <span>{likesCount}</span>  </div>
         </div>
     )
 }

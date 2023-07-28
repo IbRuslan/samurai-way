@@ -18,9 +18,6 @@ export const Messages: React.FC<MessageType> = ({messagesPage, newMessagesText, 
     const dialogsUsers = messagesPage.messagesUsers
         .map(d => <MessageItem key={d.id} name={d.name} id={d.id}/>)
 
-    const dialogsMessages = messagesPage.messagesData
-        .map(m => <Message key={m.id} message={m.message}/>)
-
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const messages = e.currentTarget.value
         props.updateNewMessagesText(messages)
@@ -32,15 +29,13 @@ export const Messages: React.FC<MessageType> = ({messagesPage, newMessagesText, 
     }
 
     return (
-        <div className={s.messages}>
+        <div className={s.messages_container}>
             <div className={s.messages_users}>
                 {dialogsUsers}
             </div>
-            <div className={s.messages_dialogs}>
-                <div>
-                    {dialogsMessages}
-                </div>
-                <div>
+            <div className={s.chat}>
+                <Message />
+                <div className={s.form}>
                    <textarea
                        placeholder={'Enter your messages'}
                        value={newMessagesText}

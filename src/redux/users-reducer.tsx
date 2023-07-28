@@ -16,18 +16,7 @@ export interface UsersPageType {
 }
 
 const initialState : UsersPageType = {
-    "items": [
-        {
-            "name": "Shubert",
-            "id": 1,
-            "photos": {
-                "small": null,
-                "large": null
-            },
-            "status": null,
-            "followed": false
-        },
-    ],
+    "items": [],
     "totalCount": 30,
     "error": null
 }

@@ -17,12 +17,6 @@ export type RootStateType = {
 
 export type ActionType = ActionProfileType | ActionMessagesType | ActionUsersType;
 
-export type StoreType = {
-    getState: () => RootStateType
-    dispatch: (action: ActionType) => void
-    subscribe: (observer: () => void) => void
-} 
-
 const store = createStore(reducers)
 
 export default store
