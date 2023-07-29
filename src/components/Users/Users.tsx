@@ -24,7 +24,9 @@ export const Users: React.FC<UsersTypeProps> = ({users, ...props}) => {
                 users.map(u => <div key={u.id}>
                     <span>
                         <div className={s.container_img}>
-                            <img src={u.photos.small ? u.photos.small : 'https://www.seekpng.com/png/detail/73-730482_existing-user-default-avatar.png'} alt="ava"/>
+                            <img
+                                src={u.photos.small ? u.photos.small : 'https://www.seekpng.com/png/detail/73-730482_existing-user-default-avatar.png'}
+                                alt="ava"/>
                         </div>
                         <div>
                             {u.followed
