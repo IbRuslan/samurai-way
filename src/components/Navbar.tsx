@@ -1,10 +1,9 @@
 import React from 'react'
-import imgProfile from '../img/profile.svg'
-import imgMessages from '../img/messages.svg'
-import imgMusic from '../img/music.svg'
-import imgNews from '../img/news.svg'
-import imgUsers from '../img/users.svg'
-import imgSettings from '../img/settings.svg'
+import imgProfile from '../img/nav/profile.svg'
+import imgMessages from '../img/nav/messages.svg'
+import imgMusic from '../img/nav/music.svg'
+import imgUsers from '../img/nav/users.svg'
+import imgSettings from '../img/nav/settings.svg'
 import s from './navbar.module.css'
 import {NavLink} from "react-router-dom";
 

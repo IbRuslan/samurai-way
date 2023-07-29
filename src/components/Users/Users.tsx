@@ -1,27 +1,39 @@
 import React from 'react';
 import s from './users.module.css'
 import {UsersType} from "../../redux/users-reducer";
-import axios from "axios";
 
 type UsersTypeProps = {
     users: Array<UsersType>
+    totalCount: number
+    pageSize: number
+    currentPage: number
     follow: (id: number) => void
     unFollow: (id: number) => void
-    setUsers: (users: Array<UsersType>) => void
+    currentPageChanged: (p: number) => void
+    isFetching: boolean
 }
 
-export const Users: React.FC<UsersTypeProps> = ({users, ...props}) => {
+export const Users = (props: UsersTypeProps) => {
 
-    if (users.length <= 1) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data.items)
-        })
+    const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        if (pages.length < 10) {
+            pages.push(i)
+        }
     }
 
     return (
         <div className={s.container}>
+            <div className={s.selects}>
+                {
+                    pages.map(p => <span onClick={() => props.currentPageChanged(p)} key={p}
+                                         className={props.currentPage === p ? s.select : ''}>{p}</span>)
+                }
+            </div>
             {
-                users.map(u => <div key={u.id}>
+                props.users.map(u => <div key={u.id}>
                     <span>
                         <div className={s.container_img}>
                             <img
@@ -35,14 +47,14 @@ export const Users: React.FC<UsersTypeProps> = ({users, ...props}) => {
                             }
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                     </span>
-                </div>)
-            }
+                    </div>
+                )}
         </div>
-    );
+    )
 };

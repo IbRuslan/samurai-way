@@ -3,7 +3,7 @@ import s from './messages.module.css'
 import {Message} from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
 import {MessagesPageType} from "../../redux/messages-reducer";
-import {Button} from "../SuperButton/Button";
+import {Button} from "../SuperComponents/SuperButton/Button";
 
 type MessageType = {
     messagesPage: MessagesPageType
