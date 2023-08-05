@@ -19,4 +19,7 @@ export type ActionType = ActionProfileType | ActionMessagesType | ActionUsersTyp
 
 const store = createStore(reducers)
 
+// @ts-ignore
+window.store = store;
+
 export default store

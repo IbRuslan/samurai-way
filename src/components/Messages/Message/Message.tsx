@@ -22,8 +22,8 @@ export const Message = () => {
             </div>
             <div className={s.messages__mine}>
                 {message.messagesData.map(m =>
-                    <div className={s.message}>
-                        <div className={s.message__text} key={m.id}>
+                    <div className={s.message} key={m.id}>
+                        <div className={s.message__text}>
                             {m.message}
                         </div>
                         <div className={s.message__time}>

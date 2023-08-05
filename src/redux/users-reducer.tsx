@@ -30,7 +30,6 @@ const initialState : UsersPageType = {
 export type ActionUsersType = followAT | unFollowAT | setUsersAT | setCurrentPageAT | setTotalCountsAT | toggleIsFetchingAT
 
 export const userReducer = (state: UsersPageType = initialState, action: ActionUsersType): UsersPageType => {
-    console.log('set')
     switch (action.type) {
         case "FOLLOW":
             debugger
@@ -56,6 +55,7 @@ export type setUsersAT = ReturnType<typeof setUsersAC>
 export type setCurrentPageAT = ReturnType<typeof setCurrentPageAC>
 export type setTotalCountsAT = ReturnType<typeof setTotalCountsAC>
 export type toggleIsFetchingAT = ReturnType<typeof toggleIsFetchingAC>
+
 export const followAC = (id: number) => ({type: 'FOLLOW', id} as const)
 export const unFollowAC = (id: number) => ({type: 'UNFOLLOW', id} as const)
 export const setUsersAC = (users: Array<UsersType>) => ({type: 'SET-USERS', users} as const)

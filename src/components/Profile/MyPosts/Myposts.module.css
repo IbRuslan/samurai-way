@@ -17,14 +17,12 @@
 .avatar {
     width: 45px;
     height: 45px;
-    /*border-radius: 50%;*/
     overflow: hidden;
     margin: 2px 5px 0 15px;
     border-radius: 50px;
 }
 
 .addPost {
-    /*flex-grow: 1;*/
     flex-basis: 80%
 }
 

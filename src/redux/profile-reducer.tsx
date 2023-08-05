@@ -4,7 +4,30 @@ export type PostsType = {
     likesCount: number
 }
 
+export type ProfileType = {
+    aboutMe: string;
+    contacts: {
+        facebook: string | null;
+        website: string | null;
+        vk: string | null;
+        twitter: string | null;
+        instagram: string | null;
+        youtube: string | null;
+        github: string | null;
+        mainLink: string | null;
+    };
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string | null;
+    fullName: string;
+    userId: number;
+    photos: {
+        small: string;
+        large: string;
+    };
+}
+
 export type ProfilePageType = {
+    profile: ProfileType | null
     posts: PostsType[]
     newPostText: string
 }
@@ -15,10 +38,11 @@ const initialState: ProfilePageType = {
         {id: 2, message: 'Im happy', likesCount: 4},
         {id: 3, message: 'Its my first post', likesCount: 16}
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null,
 }
 
-export type ActionProfileType = addPostActionType | UpdateNewPostActionType
+export type ActionProfileType = addPostAT | UpdateNewPostAT | setUserProfileAT
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
     switch (action.type) {
@@ -31,12 +55,17 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, posts: [newPost, ...state.posts], newPostText: ''}
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newText}
+        case 'SET-USER-PROFILE':
+            return {...state, profile: action.profile}
+        default:
+            return state
     }
-    return state
 }
 
-export type addPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostActionType = ReturnType<typeof updateNewPostActionCreator>
-export const addPostActionCreator = () => ({type: 'ADD-POST'} as const)
-export const updateNewPostActionCreator = (text: string) =>
+export type addPostAT = ReturnType<typeof addPostAC>
+export type UpdateNewPostAT = ReturnType<typeof updateNewPostAC>
+export type setUserProfileAT = ReturnType<typeof setUserProfileAC>
+export const addPostAC = () => ({type: 'ADD-POST'} as const)
+export const updateNewPostAC = (text: string) =>
     ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
