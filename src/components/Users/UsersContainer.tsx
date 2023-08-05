@@ -71,11 +71,11 @@ class UsersApi extends React.Component<UsersApiProps> {
 const mapStateToProps = (state: RootStateType) => {
 
     return {
-        users: state.usersPage.items,
-        totalCount: state.usersPage.totalCount,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        users: state.users.items,
+        totalCount: state.users.totalCount,
+        pageSize: state.users.pageSize,
+        currentPage: state.users.currentPage,
+        isFetching: state.users.isFetching
     }
 }
 

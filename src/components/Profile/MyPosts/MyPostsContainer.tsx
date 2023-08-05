@@ -6,8 +6,8 @@ import {ActionType, RootStateType} from "../../../redux/redux-store";
 
 const mapStateToProps = (state: RootStateType) => {
     return {
-        posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
+        posts: state.profile.posts,
+        newPostText: state.profile.newPostText
     }
 }
 

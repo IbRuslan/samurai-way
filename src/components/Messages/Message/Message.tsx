@@ -6,7 +6,7 @@ import {MessagesPageType} from "../../../redux/messages-reducer";
 
 export const Message = () => {
 
-    const message = useSelector<RootStateType, MessagesPageType>(state => state.messagesPage)
+    const message = useSelector<RootStateType, MessagesPageType>(state => state.messages)
 
     return (
         <div className={s.messages}>

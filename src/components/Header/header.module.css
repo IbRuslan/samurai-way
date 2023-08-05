@@ -18,3 +18,17 @@
     font-size: 30px;
     margin: 0 auto;
 }
+
+.login {
+    margin-right: 10px
+}
+
+.login a {
+    margin-left: 8px;
+    color: #304c6c;
+    text-decoration: none
+}
+
+.login a:hover {
+    color: #0d2342;
+}

@@ -6,8 +6,8 @@ import {Messages} from "./Messages";
 
 const mapStateToProps = (state: RootStateType) => {
     return {
-        messagesPage: state.messagesPage,
-        newMessagesText: state.messagesPage.newMessagesText
+        messages: state.messages,
+        newMessagesText: state.messages.newMessagesText
     }
 }
 const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {

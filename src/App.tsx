@@ -20,7 +20,7 @@ const App: FC<AppType>  = () => {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path='/profile' component={ProfileContainerConnect}/>
+                    <Route path='/profile/:userId?' component={ProfileContainerConnect}/>
                     <Route path='/messages' render={ ()=> <MessageContainer/>}/>
                     <Route path='/users' component={UsersContainer}/>
                     <Route path='/music' component={Music}/>

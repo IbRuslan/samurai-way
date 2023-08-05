@@ -6,16 +6,16 @@ import {MessagesPageType} from "../../redux/messages-reducer";
 import {Button} from "../SuperComponents/SuperButton/Button";
 
 type MessageType = {
-    messagesPage: MessagesPageType
+    messages: MessagesPageType
     newMessagesText: string
     addMessage: () => void
     updateNewMessagesText: (text: string) => void
 }
 
-export const Messages: React.FC<MessageType> = ({messagesPage, newMessagesText, ...props}) => {
+export const Messages: React.FC<MessageType> = ({messages, newMessagesText, ...props}) => {
 
 
-    const dialogsUsers = messagesPage.messagesUsers
+    const dialogsUsers = messages.messagesUsers
         .map(d => <MessageItem key={d.id} name={d.name} id={d.id}/>)
 
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
