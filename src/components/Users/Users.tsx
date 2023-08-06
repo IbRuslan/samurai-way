@@ -14,6 +14,8 @@ type UsersTypeProps = {
     unFollow: (id: number) => void
     currentPageChanged: (p: number) => void
     isFetching: boolean
+    followingInProgress: (progress: boolean, userId: number) => void
+    InProgress: number[]
 }
 
 export const Users = (props: UsersTypeProps) => {
@@ -28,27 +30,31 @@ export const Users = (props: UsersTypeProps) => {
     }
 
     const onClickUnFollowHandler = (id: number) => {
+        props.followingInProgress(true, id)
         unFollow(id)
             .then(data => {
                 if(data.resultCode === 0) {
                     props.unFollow(id)
                 }
+                props.followingInProgress(false, id)
             })
     }
     const onClickFollowHandler = (id: number) => {
+        props.followingInProgress(true, id)
         follow(id)
             .then(data => {
                 if(data.resultCode === 0) {
                     props.follow(id)
                 }
+                props.followingInProgress(false, id)
             })
     }
     return (
         <div className={s.container}>
             <div className={s.selects}>
                 {
-                    pages.map(p => <span onClick={() => props.currentPageChanged(p)} key={p}
-                                         className={props.currentPage === p ? s.select : ''}>{p}</span>)
+                    pages.map(p => <span
+                        onClick={() => props.currentPageChanged(p)} key={p} className={props.currentPage === p ? s.select : ''}>{p}</span>)
                 }
             </div>
             {
@@ -64,8 +70,8 @@ export const Users = (props: UsersTypeProps) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => onClickUnFollowHandler(u.id)}>UnFollow</button>
-                                : <button onClick={() => onClickFollowHandler(u.id)}>Follow</button>
+                                ? <button disabled={props.InProgress.some(id => id === u.id)} onClick={() => onClickUnFollowHandler(u.id)}>UnFollow</button>
+                                : <button disabled={props.InProgress.some(id => id === u.id)} onClick={() => onClickFollowHandler(u.id)}>Follow</button>
                             }
                         </div>
                     </span>

@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {connect} from "react-redux";
 import {ActionType, RootStateType} from "../../redux/redux-store";
 import {
-    followAC,
+    followAC, followingInProgressAC,
     setCurrentPageAC,
     setTotalCountsAC,
     setUsersAC, toggleIsFetchingAC,
@@ -19,12 +19,14 @@ export interface UsersApiProps {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    InProgress: number[]
     follow: (id: number) => void
     unFollow: (id: number) => void
     setUsers: (users: Array<UsersType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalCounts: (counts: number) => void
     toggleIsFetching: (fetching: boolean) => void
+    followingInProgress: (progress: boolean, userId: number) => void
 }
 
 class UsersApi extends React.Component<UsersApiProps> {
@@ -58,6 +60,8 @@ class UsersApi extends React.Component<UsersApiProps> {
                              follow={this.props.follow}
                              unFollow={this.props.unFollow}
                              isFetching={this.props.isFetching}
+                             followingInProgress={this.props.followingInProgress}
+                             InProgress={this.props.InProgress}
                     />}
             </>
         );
@@ -71,7 +75,8 @@ const mapStateToProps = (state: RootStateType) => {
         totalCount: state.users.totalCount,
         pageSize: state.users.pageSize,
         currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching
+        isFetching: state.users.isFetching,
+        InProgress: state.users.followingInProgress
     }
 }
 
@@ -94,6 +99,9 @@ const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
         },
         toggleIsFetching: (fetching: boolean) => {
             dispatch(toggleIsFetchingAC(fetching))
+        },
+        followingInProgress: (progress: boolean, userId: number) => {
+            dispatch(followingInProgressAC(progress, userId))
         }
     }
 }
