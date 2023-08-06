@@ -9,9 +9,9 @@ import {
     unFollowAC,
     UsersType
 } from "../../redux/users-reducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../SuperComponents/Preloader/Preloader";
+import {getUsers} from "../../api/api";
 
 export interface UsersApiProps {
     users: Array<UsersType>
@@ -28,29 +28,25 @@ export interface UsersApiProps {
 }
 
 class UsersApi extends React.Component<UsersApiProps> {
-
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCounts(response.data.totalCount)
+        getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items)
+                this.props.setTotalCounts(data.totalCount)
                 this.props.toggleIsFetching(false)
             })
     }
-
     currentPageChanged = (p: number) => {
         this.props.setCurrentPage(p)
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
+        getUsers(p, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items)
                 this.props.toggleIsFetching(false)
             })
     }
-
     render() {
-
         return (<>
                 {this.props.isFetching
                     ? <Preloader/>

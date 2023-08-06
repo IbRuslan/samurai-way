@@ -3,6 +3,7 @@ import s from './users.module.css'
 import userPhoto from '../../img/avatar/userPhoto.png'
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {follow, unFollow} from "../../api/api";
 
 type UsersTypeProps = {
     users: Array<UsersType>
@@ -26,6 +27,22 @@ export const Users = (props: UsersTypeProps) => {
         }
     }
 
+    const onClickUnFollowHandler = (id: number) => {
+        unFollow(id)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    props.unFollow(id)
+                }
+            })
+    }
+    const onClickFollowHandler = (id: number) => {
+        follow(id)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    props.follow(id)
+                }
+            })
+    }
     return (
         <div className={s.container}>
             <div className={s.selects}>
@@ -47,19 +64,18 @@ export const Users = (props: UsersTypeProps) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => props.unFollow(u.id)}>UnFollow</button>
-                                : <button onClick={() => props.follow(u.id)}>Follow</button>
+                                ? <button onClick={() => onClickUnFollowHandler(u.id)}>UnFollow</button>
+                                : <button onClick={() => onClickFollowHandler(u.id)}>Follow</button>
                             }
                         </div>
                     </span>
                         <span>
-                        <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
-                    </span>
                     </div>
-                )}
+                )
+            }
         </div>
     )
 };
