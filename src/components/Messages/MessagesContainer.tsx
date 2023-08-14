@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {addMessageActionCreator, updateNewMessagesActionText} from "../../redux/messages-reducer";
 import {ActionType, RootStateType} from "../../redux/redux-store";
 import {Messages} from "./Messages";
+import { Dispatch } from 'redux'
 
 const mapStateToProps = (state: RootStateType) => {
     return {
@@ -10,7 +11,7 @@ const mapStateToProps = (state: RootStateType) => {
         newMessagesText: state.messages.newMessagesText
     }
 }
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
 
     return {
         updateNewMessagesText: (text: string) => {

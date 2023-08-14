@@ -1,11 +1,11 @@
 import React from "react";
 import s from './profile.module.css';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileType, setUserProfileAC} from "../../redux/profile-reducer";
 import {RootStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {profileShowUser} from "../../api/api";
 
 interface MatchParams {
     userId: string;
@@ -22,9 +22,9 @@ class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> 
     componentDidMount() {
         let userId = this.props.match.params.userId
         if(!userId) { userId = "29611" }
-        axios.get("https://social-network.samuraijs.com/api/1.0/profile/" + userId)
-            .then(response => {
-                this.props.setUserProfileAC(response.data)
+        profileShowUser(userId)
+            .then(data => {
+                this.props.setUserProfileAC(data)
             })
     }
     render() {

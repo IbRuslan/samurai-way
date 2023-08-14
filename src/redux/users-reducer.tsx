@@ -1,3 +1,6 @@
+import { Dispatch } from 'redux';
+import {getUsers} from "../api/api";
+
 export interface UsersType {
     name: string;
     id: number;
@@ -70,3 +73,15 @@ export const setTotalCountsAC = (counts: number) => ({type: 'SET-TOTAL-COUNTS', 
 export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const toggleIsFetchingAC = (fetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', fetching} as const)
 export const followingInProgressAC = (progress: boolean, userId: number) => ({type: 'TOGGLE-IS-FOLLOWING-PROGRESS', progress, userId} as const)
+
+
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<any>) => {
+    dispatch(toggleIsFetchingAC(true))
+    getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(setCurrentPageAC(currentPage))
+            dispatch(setUsersAC(data.items))
+            dispatch(setTotalCountsAC(data.totalCount))
+            dispatch(toggleIsFetchingAC(false))
+        })
+}

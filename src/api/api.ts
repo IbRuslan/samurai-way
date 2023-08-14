@@ -34,3 +34,10 @@ export const authMe = () => {
             return response.data
         })
 }
+
+export const profileShowUser = (userId: string) => {
+    return instance.get(`/profile/${userId}`)
+        .then(response => {
+            return response.data
+        })
+}
