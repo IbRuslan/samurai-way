@@ -3,18 +3,16 @@ import s from './users.module.css'
 import userPhoto from '../../img/avatar/userPhoto.png'
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {follow, unFollow} from "../../api/api";
 
 type UsersTypeProps = {
     users: Array<UsersType>
     totalCount: number
     pageSize: number
     currentPage: number
-    follow: (id: number) => void
-    unFollow: (id: number) => void
+    follow: (id: number) => any
+    unFollow: (id: number) => any
     currentPageChanged: (p: number) => void
     isFetching: boolean
-    followingInProgress: (progress: boolean, userId: number) => void
     InProgress: number[]
 }
 
@@ -30,24 +28,24 @@ export const Users = (props: UsersTypeProps) => {
     }
 
     const onClickUnFollowHandler = (id: number) => {
-        props.followingInProgress(true, id)
-        unFollow(id)
-            .then(data => {
-                if(data.resultCode === 0) {
-                    props.unFollow(id)
-                }
-                props.followingInProgress(false, id)
-            })
+        props.unFollow(id)
+        // unFollow(id)
+        //     .then(data => {
+        //         if(data.resultCode === 0) {
+        //             props.unFollow(id)
+        //         }
+        //         props.followingInProgress(false, id)
+        //     })
     }
     const onClickFollowHandler = (id: number) => {
-        props.followingInProgress(true, id)
-        follow(id)
-            .then(data => {
-                if(data.resultCode === 0) {
-                    props.follow(id)
-                }
-                props.followingInProgress(false, id)
-            })
+        props.follow(id)
+        // follow(id)
+        //     .then(data => {
+        //         if(data.resultCode === 0) {
+        //             props.follow(id)
+        //         }
+        //         props.followingInProgress(false, id)
+        //     })
     }
     return (
         <div className={s.container}>

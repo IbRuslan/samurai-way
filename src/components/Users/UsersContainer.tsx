@@ -1,11 +1,7 @@
 import React, {FC} from 'react';
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {
-    followAC, followingInProgressAC, getUsersTC,
-    unFollowAC,
-    UsersType
-} from "../../redux/users-reducer";
+import {followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../SuperComponents/Preloader/Preloader";
 import { Dispatch } from 'redux'
@@ -17,10 +13,9 @@ export interface UsersApiProps {
     currentPage: number
     isFetching: boolean
     InProgress: number[]
-    follow: (id: number) => void
-    unFollow: (id: number) => void
-    followingInProgress: (progress: boolean, userId: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => any
+    unFollowTC: (id: number) => any
+    followTC: (id: number) => any
 }
 
 class UsersApi extends React.Component<UsersApiProps> {
@@ -53,10 +48,9 @@ class UsersApi extends React.Component<UsersApiProps> {
                              totalCount={this.props.totalCount}
                              pageSize={this.props.pageSize}
                              currentPage={this.props.currentPage}
-                             follow={this.props.follow}
-                             unFollow={this.props.unFollow}
+                             follow={this.props.followTC}
+                             unFollow={this.props.unFollowTC}
                              isFetching={this.props.isFetching}
-                             followingInProgress={this.props.followingInProgress}
                              InProgress={this.props.InProgress}
                     />}
             </>
@@ -78,16 +72,9 @@ const mapStateToProps = (state: RootStateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        follow: (id: number) => {
-            dispatch(followAC(id))
-        },
-        unFollow: (id: number) => {
-            dispatch(unFollowAC(id))
-        },
-        followingInProgress: (progress: boolean, userId: number) => {
-            dispatch(followingInProgressAC(progress, userId))
-        },
-        getUsersTC: (currentPage: number, pageSize: number) => dispatch(getUsersTC(currentPage, pageSize))
+        getUsersTC: (currentPage: number, pageSize: number) => dispatch(getUsersTC(currentPage, pageSize)),
+        unFollowTC: (id: number) => dispatch(unFollowTC(id)),
+        followTC: (id: number) => dispatch(followTC(id))
     }
 }
 

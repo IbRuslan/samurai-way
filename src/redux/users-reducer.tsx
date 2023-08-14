@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import {getUsers} from "../api/api";
+import {follow, getUsers, unFollow} from "../api/api";
 
 export interface UsersType {
     name: string;
@@ -50,9 +50,11 @@ export const userReducer = (state: UsersPageType = initialState, action: ActionU
         case "TOGGLE-IS-FETCHING":
             return {...state, isFetching: action.fetching}
         case "TOGGLE-IS-FOLLOWING-PROGRESS":
-            return {...state, followingInProgress: action.progress
+            return {
+                ...state, followingInProgress: action.progress
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id !== action.userId)}
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -83,5 +85,25 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
             dispatch(setUsersAC(data.items))
             dispatch(setTotalCountsAC(data.totalCount))
             dispatch(toggleIsFetchingAC(false))
+        })
+}
+export const followTC = (id: number) => (dispatch: Dispatch<any>) => {
+    dispatch(followingInProgressAC(true, id))
+    follow(id)
+        .then(data => {
+            if(data.resultCode === 0) {
+                dispatch(followAC(id))
+            }
+            dispatch(followingInProgressAC(false, id))
+        })
+}
+export const unFollowTC = (id: number) => (dispatch: Dispatch<any>) => {
+    dispatch(followingInProgressAC(true, id))
+    unFollow(id)
+        .then(data => {
+            if(data.resultCode === 0) {
+                dispatch(unFollowAC(id))
+            }
+            dispatch(followingInProgressAC(false, id))
         })
 }
