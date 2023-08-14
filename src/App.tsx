@@ -8,6 +8,7 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainerConnect} from "./components/Profile/ProfileContainer";
 import {FC} from "react";
 import {HeaderContainerApi} from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 type AppType = {
 }
@@ -20,6 +21,7 @@ const App: FC<AppType>  = () => {
                 <HeaderContainerApi/>
                 <Navbar/>
                 <div className="content">
+                    <Route path='/login' component={Login}/>
                     <Route path='/profile/:userId?' component={ProfileContainerConnect}/>
                     <Route path='/messages' render={ ()=> <MessageContainer/>}/>
                     <Route path='/users' component={UsersContainer}/>

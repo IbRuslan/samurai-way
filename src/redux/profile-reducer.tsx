@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {profileShowUser} from "../api/api";
+
 export type PostsType = {
     id: number
     message: string
@@ -69,3 +72,10 @@ export const addPostAC = () => ({type: 'ADD-POST'} as const)
 export const updateNewPostAC = (text: string) =>
     ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
 export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
+
+export const profileShowUserTC = (userId: string) => (dispatch: Dispatch<any>) => {
+    profileShowUser(userId)
+        .then(data => {
+            dispatch(setUserProfileAC(data))
+        })
+}
