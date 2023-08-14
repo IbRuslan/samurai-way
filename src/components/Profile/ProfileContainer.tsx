@@ -1,10 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './profile.module.css';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {profileShowUserTC, ProfileType} from "../../redux/profile-reducer";
 import {RootStateType} from "../../redux/redux-store";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
 interface MatchParams {
@@ -13,7 +14,7 @@ interface MatchParams {
 export type ProfileContainerProps = {
     profileShowUserTC: (userId: string) => any
     profile: ProfileType
-    userId: string
+    isAuth: boolean
 }
 
 class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> & ProfileContainerProps>{
@@ -24,6 +25,9 @@ class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> 
         this.props.profileShowUserTC(userId)
     }
     render() {
+
+        if (!this.props.isAuth) return <Redirect to={'login'}/>
+
         return (
             <div className={s.profile}>
                 <Profile profile={this.props.profile}/>
@@ -34,13 +38,12 @@ class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> 
 
 const mapStateToProps = (state: RootStateType) => {
     return {
-        profile: state.profile.profile
+        profile: state.profile.profile,
+        isAuth: state.auth.isAuth
     }
 }
-
-
 // @ts-ignore
-const withUrlDataContainerComponent = withRouter(ProfileContainer)
-
-// @ts-ignore
-export const ProfileContainerConnect: FC =  connect(mapStateToProps, {profileShowUserTC})(withUrlDataContainerComponent)
+export const ProfileContainerConnect: FC = compose(
+    connect(mapStateToProps, {profileShowUserTC}),
+    withRouter
+)(ProfileContainer)

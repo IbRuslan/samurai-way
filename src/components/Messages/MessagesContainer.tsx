@@ -8,7 +8,8 @@ import { Dispatch } from 'redux'
 const mapStateToProps = (state: RootStateType) => {
     return {
         messages: state.messages,
-        newMessagesText: state.messages.newMessagesText
+        newMessagesText: state.messages.newMessagesText,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {

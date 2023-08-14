@@ -4,12 +4,14 @@ import {Message} from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
 import {MessagesPageType} from "../../redux/messages-reducer";
 import {Button} from "../SuperComponents/SuperButton/Button";
+import {Redirect} from "react-router-dom";
 
 type MessageType = {
     messages: MessagesPageType
     newMessagesText: string
     addMessage: () => void
     updateNewMessagesText: (text: string) => void
+    isAuth: boolean
 }
 
 export const Messages: React.FC<MessageType> = ({messages, newMessagesText, ...props}) => {
@@ -27,6 +29,8 @@ export const Messages: React.FC<MessageType> = ({messages, newMessagesText, ...p
             props.addMessage()
         }
     }
+
+    if (!props.isAuth) return <Redirect to={'login'}/>
 
     return (
         <div className={s.messages_container}>
