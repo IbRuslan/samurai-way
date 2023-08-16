@@ -3,6 +3,7 @@ import s from './aboutme.module.css'
 import {ProfileType} from "../../../redux/profile-reducer";
 import {Preloader} from "../../SuperComponents/Preloader/Preloader";
 import userPhoto from "../../../img/avatar/userPhoto.png"
+import {StatusAboutMe} from "./StatusAboutMe";
 
 type AboutMeProps = {
     profile: ProfileType
@@ -22,6 +23,7 @@ export const AboutMe = (props: AboutMeProps) => {
             <div className={s.about}>
                 <div className={s.myname}>{props.profile && props.profile.fullName}</div>
                 <div className={s.character}>
+                    <StatusAboutMe status={'hello'}/>
                 </div>
             </div>
         </div>
