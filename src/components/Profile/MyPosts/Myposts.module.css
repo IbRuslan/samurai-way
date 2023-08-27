@@ -26,16 +26,6 @@
     flex-basis: 80%
 }
 
-.addPost textarea {
-    width: 95%;
-    height: 50px;
-    resize: none;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    padding: 10px;
-}
-
 textarea::-webkit-scrollbar {
     width: 8px;
 }
@@ -47,7 +37,6 @@ textarea:hover::-webkit-scrollbar {
 textarea::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 10px;
-    border: none;
 }
 
 textarea:hover::-webkit-scrollbar-thumb {

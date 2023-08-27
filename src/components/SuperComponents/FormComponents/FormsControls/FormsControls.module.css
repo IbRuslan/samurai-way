@@ -1,0 +1,23 @@
+.form {
+    width: 100% !important;
+}
+
+.text {
+    width: 100%;
+    resize: none;
+    border: 1px solid #332626;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.error {
+    border-radius: 1px;
+    border: 1px solid red;
+}
+
+.span {
+    color: red;
+}
