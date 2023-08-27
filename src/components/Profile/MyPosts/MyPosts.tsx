@@ -1,21 +1,19 @@
 import React from 'react'
 import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
-import {Button} from "../../SuperComponents/SuperButton/Button";
 import imgAva from "../../../img/avatar/ava.jpg";
 import {PostsType} from "../../../redux/profile-reducer";
+import {MessageFormValues, SuperTextarea} from "../../SuperComponents/FormComponents/SuperTextarea";
+import {reduxForm} from "redux-form";
 
 type PostType = {
-    updateNewPostText: (text: string) => void
-    addPost: () => void
+    addPost: (newPostText: string) => void
     posts: PostsType[]
-    newPostText: string
 }
 
 export const MyPosts: React.FC<PostType> = (
     {
         posts,
-        newPostText,
         ...props
     }
     ) => {
@@ -25,16 +23,9 @@ export const MyPosts: React.FC<PostType> = (
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPostHandler = () => {
-        if (newPostText.trim() !== '') {
-            props.addPost()
-        }
-    }
-
-    const onPostChange = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value;
-            props.updateNewPostText(text)
+    let addPostHandler = (values: MessageFormValues) => {
+        if (values.newMessageBody.trim() !== '') {
+            props.addPost(values.newMessageBody)
         }
     }
 
@@ -45,13 +36,12 @@ export const MyPosts: React.FC<PostType> = (
                     <img src={imgAva} alt=''/>
                 </div>
                 <div className={s.addPost}>
-                    <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}/>
-                </div>
-                <div className={s.button}>
-                    <Button name={'Add'} callback={addPostHandler}/>
+                    <ReduxPostForm onSubmit={addPostHandler}/>
                 </div>
             </div>
                 {postElements}
         </div>
     )
 }
+
+export const ReduxPostForm = reduxForm<MessageFormValues, {}>({ form: 'postText' })(SuperTextarea);

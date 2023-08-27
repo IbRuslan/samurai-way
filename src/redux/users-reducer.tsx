@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import {follow, getUsers, unFollow} from "../api/api";
+import {UserApi} from "../api/api";
 
 export interface UsersType {
     name: string;
@@ -79,7 +79,7 @@ export const followingInProgressAC = (progress: boolean, userId: number) => ({ty
 
 export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<any>) => {
     dispatch(toggleIsFetchingAC(true))
-    getUsers(currentPage, pageSize)
+    UserApi.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(setCurrentPageAC(currentPage))
             dispatch(setUsersAC(data.items))
@@ -89,7 +89,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
 }
 export const followTC = (id: number) => (dispatch: Dispatch<any>) => {
     dispatch(followingInProgressAC(true, id))
-    follow(id)
+    UserApi.follow(id)
         .then(data => {
             if(data.resultCode === 0) {
                 dispatch(followAC(id))
@@ -99,7 +99,7 @@ export const followTC = (id: number) => (dispatch: Dispatch<any>) => {
 }
 export const unFollowTC = (id: number) => (dispatch: Dispatch<any>) => {
     dispatch(followingInProgressAC(true, id))
-    unFollow(id)
+    UserApi.unFollow(id)
         .then(data => {
             if(data.resultCode === 0) {
                 dispatch(unFollowAC(id))

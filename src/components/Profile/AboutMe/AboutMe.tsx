@@ -7,6 +7,8 @@ import {StatusAboutMe} from "./StatusAboutMe";
 
 type AboutMeProps = {
     profile: ProfileType
+    status: string
+    updateStatus: (newStatus: string) => any
 }
 
 export const AboutMe = (props: AboutMeProps) => {
@@ -23,7 +25,7 @@ export const AboutMe = (props: AboutMeProps) => {
             <div className={s.about}>
                 <div className={s.myname}>{props.profile && props.profile.fullName}</div>
                 <div className={s.character}>
-                    <StatusAboutMe status={'hello'}/>
+                    <StatusAboutMe status={props.status} updateStatus={props.updateStatus}/>
                 </div>
             </div>
         </div>

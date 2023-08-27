@@ -11,7 +11,6 @@ export type MessagesType = {
 export type MessagesPageType = {
     messagesUsers: MessagesUsers[]
     messagesData: MessagesType[]
-    newMessagesText: string
 }
 
 const initialState: MessagesPageType = {
@@ -27,27 +26,21 @@ const initialState: MessagesPageType = {
         {id: 2, message: 'How are yo'},
         {id: 3, message: 'Yo'}
     ],
-    newMessagesText: ''
 }
 
-export type ActionMessagesType = addMessageActionType | updateNewMessagesActionType
+export type ActionMessagesType = addMessageActionType
 
 export const messagesReducer = (state: MessagesPageType = initialState, action: ActionMessagesType): MessagesPageType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessages = {
                 id: state.messagesData.length + 1,
-                message: state.newMessagesText
+                message: action.newMessagesText
             }
-            return {...state, messagesData: [...state.messagesData, newMessages], newMessagesText: ''}
-        case 'UPDATE-NEW-MESSAGES-TEXT':
-            return {...state, newMessagesText: action.messagesText}
+            return {...state, messagesData: [...state.messagesData, newMessages]}
     }
     return state
 }
 
 export type addMessageActionType = ReturnType<typeof addMessageActionCreator>
-export type updateNewMessagesActionType = ReturnType<typeof updateNewMessagesActionText>
-export const addMessageActionCreator = () => ({type: 'ADD-MESSAGE'} as const)
-export const updateNewMessagesActionText = (messagesText: string) =>
-    ({type: 'UPDATE-NEW-MESSAGES-TEXT', messagesText: messagesText} as const)
+export const addMessageActionCreator = (newMessagesText: string) => ({type: 'ADD-MESSAGE', newMessagesText} as const)

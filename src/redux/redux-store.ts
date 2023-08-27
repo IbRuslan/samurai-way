@@ -4,12 +4,14 @@ import {ActionMessagesType, MessagesPageType, messagesReducer,} from "./messages
 import {ActionUsersType, UsersPageType, userReducer} from "./users-reducer";
 import {AuthPageType, authReducer} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk"
+import {reducer as formReducer} from 'redux-form'
 
 const reducers = combineReducers({
     profile: profileReducer,
     messages: messagesReducer,
     users: userReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 export type RootStateType = {

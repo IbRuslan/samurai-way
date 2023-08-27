@@ -1,32 +1,27 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './messages.module.css'
 import {Message} from './Message/Message';
 import {MessageItem} from "./MessageItem/MessageItem";
 import {MessagesPageType} from "../../redux/messages-reducer";
-import {Button} from "../SuperComponents/SuperButton/Button";
 import {Redirect} from "react-router-dom";
+import {MessageFormValues, SuperTextarea} from "../SuperComponents/FormComponents/SuperTextarea";
+import {reduxForm} from "redux-form";
 
 type MessageType = {
     messages: MessagesPageType
-    newMessagesText: string
-    addMessage: () => void
-    updateNewMessagesText: (text: string) => void
+    addMessage: (newMessageBody: string) => void
     isAuth: boolean
 }
 
-export const Messages: React.FC<MessageType> = ({messages, newMessagesText, ...props}) => {
+export const Messages: React.FC<MessageType> = ({messages, ...props}) => {
 
 
     const dialogsUsers = messages.messagesUsers
         .map(d => <MessageItem key={d.id} name={d.name} id={d.id}/>)
 
-    const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const messages = e.currentTarget.value
-        props.updateNewMessagesText(messages)
-    }
-    const onSendButtonHandler = () => {
-        if (newMessagesText.trim() !== '') {
-            props.addMessage()
+    const onSendButtonHandler = (values: MessageFormValues) => {
+        if (values.newMessageBody.trim() !== '') {
+            props.addMessage(values.newMessageBody)
         }
     }
 
@@ -39,15 +34,11 @@ export const Messages: React.FC<MessageType> = ({messages, newMessagesText, ...p
             </div>
             <div className={s.chat}>
                 <Message />
-                <div className={s.form}>
-                   <textarea
-                       placeholder={'Enter your messages'}
-                       value={newMessagesText}
-                       onChange={onChangeTextareaHandler}>
-                   </textarea>
-                    <Button name={'Send'} callback={onSendButtonHandler}/>
-                </div>
+                <ReduxMessageForm onSubmit={onSendButtonHandler} />
             </div>
         </div>
     );
 };
+
+
+export const ReduxMessageForm = reduxForm<MessageFormValues, {}>({ form: 'messageText' })(SuperTextarea);
