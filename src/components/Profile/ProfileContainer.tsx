@@ -7,7 +7,7 @@ import {
     profileGetUserStatusTC,
     profileShowUserTC,
     ProfileType } from "../../redux/profile-reducer";
-import {RootStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
@@ -47,7 +47,7 @@ class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> 
     }
 }
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         profile: state.profile.profile,
         isAuth: state.auth.isAuth,

@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../SuperComponents/Preloader/Preloader";
@@ -57,7 +57,7 @@ class UsersApi extends React.Component<UsersApiProps> {
     }
 }
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
 
     return {
         users: state.users.items,

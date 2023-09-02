@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {addMessageActionCreator} from "../../redux/messages-reducer";
-import {ActionType, RootStateType} from "../../redux/redux-store";
+import {ActionType, AppRootStateType} from "../../redux/redux-store";
 import {Messages} from "./Messages";
 import { Dispatch } from 'redux'
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         messages: state.messages,
         isAuth: state.auth.isAuth

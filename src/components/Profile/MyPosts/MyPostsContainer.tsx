@@ -2,10 +2,10 @@ import React from 'react';
 import {MyPosts} from "./MyPosts";
 import {addPostAC} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
-import {ActionType, RootStateType} from "../../../redux/redux-store";
+import {ActionType, AppRootStateType} from "../../../redux/redux-store";
 import { Dispatch } from 'redux'
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         posts: state.profile.posts,
     }

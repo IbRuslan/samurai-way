@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {AuthMe} from "../api/api";
 import {AppThunkDispatch} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type AuthPageType = {
     userId: number | null,
@@ -13,7 +14,7 @@ const initialState: AuthPageType = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
 }
 
 export type ActionAuthType = setUserDataAT
@@ -31,12 +32,11 @@ export type setUserDataAT = ReturnType<typeof setAuthUserDataAC>
 export const setAuthUserDataAC = (data: AuthPageType) => ({type: 'SET-USER-DATA', data} as const)
 
 export const setAuthUserDataTC = () => (dispatch: Dispatch) => {
-    AuthMe.authMe()
+    return AuthMe.authMe()
         .then(res => {
             if (res.data.resultCode === 0) {
                 const {id, email, login} = res.data.data
                 const userId = id
-                console.log(res.data.data)
                 const isAuth = true
                 dispatch(setAuthUserDataAC({userId, email, login, isAuth}))
             }
@@ -48,7 +48,12 @@ export const setLoginTC = (email: string, password: string, rememberMe: boolean)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setAuthUserDataTC())
+            } else {
+                dispatch(stopSubmit("login", {_error: res.data.messages[0]}))
             }
+        })
+        .catch((e) => {
+            console.log(e.message)
         })
 }
 

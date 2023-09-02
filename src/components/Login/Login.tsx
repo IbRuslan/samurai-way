@@ -1,14 +1,17 @@
 import React, {ReactElement} from 'react';
+import s from './Login.module.css'
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
 import {connect} from "react-redux";
 import {setLoginTC} from "../../redux/auth-reducer";
-import {AppRootStateType, AppThunkDispatch} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import {Input} from "antd";
 
 interface LoginFormValues {
-    login: string;
+    email: string;
     password: string;
     rememberMe: boolean;
+    error: string
 }
 
 interface LoginFormProps extends InjectedFormProps<LoginFormValues> {
@@ -21,13 +24,20 @@ const LoginForm = (props: LoginFormProps): ReactElement => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <Field placeholder={'login'} component={'input'} name={'login'}/>
+                <Field placeholder={'email'} component={'input'} name={'email'}/>
             </div>
             <div>
-                <Field placeholder={'password'} component={'input'} name={'password'}/>
+                <Field placeholder={'password'} component={'input'} type={'password'} name={'password'}/>
             </div>
+            {
+                props.error
+                    ? <div className={s.error}>
+                        {props.error}
+                    </div>
+                    : ''
+            }
             <div>
-                <span>Remember me</span><Field type={'checkbox'} component={'input'} name={'rememberMe'}/>
+                <span>Remember me</span><Field type={'checkbox'} component={Input} name={'rememberMe'}/>
             </div>
             <div>
                 <button>Login</button>
@@ -45,7 +55,7 @@ type LoginTypeProps = {
 
 const Login: React.FC<LoginTypeProps> = ({setLoginTC, ...props}) => {
     const onSubmit = (formData: LoginFormValues) => {
-        setLoginTC(formData.login, formData.password, formData.rememberMe)
+        setLoginTC(formData.email, formData.password, formData.rememberMe)
     }
 
     if (props.isAuth) {

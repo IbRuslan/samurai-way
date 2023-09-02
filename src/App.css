@@ -11,6 +11,6 @@
 
 .content {
     grid-area: c;
-    background-color: #d4dae8;
+    background-color: #d4dae8 !important;
 }
 

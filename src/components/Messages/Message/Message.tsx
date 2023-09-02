@@ -1,12 +1,12 @@
 import React from 'react';
 import s from "../messages.module.css";
 import {useSelector} from "react-redux";
-import {RootStateType} from "../../../redux/redux-store";
+import {AppRootStateType} from "../../../redux/redux-store";
 import {MessagesPageType} from "../../../redux/messages-reducer";
 
 export const Message = () => {
 
-    const message = useSelector<RootStateType, MessagesPageType>(state => state.messages)
+    const message = useSelector<AppRootStateType, MessagesPageType>(state => state.messages)
 
     return (
         <div className={s.messages}>
