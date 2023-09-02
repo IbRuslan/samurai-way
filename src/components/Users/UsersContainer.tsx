@@ -4,7 +4,6 @@ import {RootStateType} from "../../redux/redux-store";
 import {followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../SuperComponents/Preloader/Preloader";
-import { Dispatch } from 'redux'
 
 export interface UsersApiProps {
     users: Array<UsersType>
@@ -13,9 +12,9 @@ export interface UsersApiProps {
     currentPage: number
     isFetching: boolean
     InProgress: number[]
-    getUsersTC: (currentPage: number, pageSize: number) => any
-    unFollowTC: (id: number) => any
-    followTC: (id: number) => any
+    getUsersTC: (currentPage: number, pageSize: number) =>  void
+    unFollowTC: (id: number) => void
+    followTC: (id: number) =>  void
 }
 
 class UsersApi extends React.Component<UsersApiProps> {
@@ -70,13 +69,5 @@ const mapStateToProps = (state: RootStateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
-    return {
-        getUsersTC: (currentPage: number, pageSize: number) => dispatch(getUsersTC(currentPage, pageSize)),
-        unFollowTC: (id: number) => dispatch(unFollowTC(id)),
-        followTC: (id: number) => dispatch(followTC(id))
-    }
-}
-
 // @ts-ignore
-export const UsersContainer: FC = connect(mapStateToProps, mapDispatchToProps)(UsersApi)
+export const UsersContainer: FC = connect(mapStateToProps, {getUsersTC, followTC, unFollowTC})(UsersApi)

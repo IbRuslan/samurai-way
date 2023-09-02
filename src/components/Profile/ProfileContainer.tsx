@@ -16,12 +16,12 @@ interface MatchParams {
     userId: string;
 }
 export type ProfileContainerProps = {
-    profileShowUserTC: (userId: string) => any
+    profileShowUserTC: (userId: string) => void
     profile: ProfileType
     isAuth: boolean
     myId: string
-    profileGetUserStatusTC: (userId: string) => any
-    profileUpdateUserStatusTC: (status: string) => any
+    profileGetUserStatusTC: (userId: string) => void
+    profileUpdateUserStatusTC: (status: string) =>  void
     status: string
 }
 
@@ -29,16 +29,16 @@ class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> 
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if(!userId) { userId = '29611' }
-        // this.props.myId
+        if(!userId && this.props.isAuth) {
+            userId = this.props.myId
+        }
+        if (!this.props.isAuth) return <Redirect to={'login'}/>
         this.props.profileShowUserTC(userId)
         this.props.profileGetUserStatusTC(userId)
     }
 
     render() {
-
         if (!this.props.isAuth) return <Redirect to={'login'}/>
-
         return (
             <div className={s.profile}>
                 <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.profileUpdateUserStatusTC} />
@@ -55,8 +55,9 @@ const mapStateToProps = (state: RootStateType) => {
         status: state.profile.status
     }
 }
+
 // @ts-ignore
-export const ProfileContainerConnect: FC = compose(
+export const ProfileContainerConnect:FC = compose(
     connect(mapStateToProps, {profileShowUserTC, profileGetUserStatusTC, profileUpdateUserStatusTC}),
     withRouter
 )(ProfileContainer)

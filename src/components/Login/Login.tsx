@@ -1,5 +1,9 @@
 import React, {ReactElement} from 'react';
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import {connect} from "react-redux";
+import {setLoginTC} from "../../redux/auth-reducer";
+import {AppRootStateType, AppThunkDispatch} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 interface LoginFormValues {
     login: string;
@@ -7,11 +11,12 @@ interface LoginFormValues {
     rememberMe: boolean;
 }
 
-interface LoginFormProps extends InjectedFormProps<LoginFormValues> {}
+interface LoginFormProps extends InjectedFormProps<LoginFormValues> {
+}
 
 const LoginForm = (props: LoginFormProps): ReactElement => {
 
-    const { handleSubmit } = props;
+    const {handleSubmit} = props;
 
     return (
         <form onSubmit={handleSubmit}>
@@ -31,18 +36,32 @@ const LoginForm = (props: LoginFormProps): ReactElement => {
     )
 }
 
-const ReduxLoginForm = reduxForm<LoginFormValues, {}>({ form: 'login' })(LoginForm);
+const ReduxLoginForm = reduxForm<LoginFormValues, {}>({form: 'login'})(LoginForm);
 
-export const Login = () => {
+type LoginTypeProps = {
+    setLoginTC: (email: string, password: string, rememberMe: boolean) => void
+    isAuth: boolean
+}
 
+const Login: React.FC<LoginTypeProps> = ({setLoginTC, ...props}) => {
     const onSubmit = (formData: LoginFormValues) => {
-        console.log(formData)
+        setLoginTC(formData.login, formData.password, formData.rememberMe)
+    }
+
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
     }
 
     return (
         <div>
             <h1>Login</h1>
-            <ReduxLoginForm onSubmit={onSubmit} />
+            <ReduxLoginForm onSubmit={onSubmit}/>
         </div>
     );
 };
+
+const mapStateToProps = (state: AppRootStateType) => {
+    return {isAuth: state.auth.isAuth}
+}
+
+export default connect(mapStateToProps, {setLoginTC})(Login)

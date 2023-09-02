@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
-import {authMe} from "../api/api";
+import {AuthMe} from "../api/api";
+import {AppThunkDispatch} from "./redux-store";
 
 export type AuthPageType = {
     userId: number | null,
@@ -20,19 +21,48 @@ export type ActionAuthType = setUserDataAT
 export const authReducer = (state: AuthPageType = initialState, action: ActionAuthType): AuthPageType => {
     switch (action.type) {
         case "SET-USER-DATA":
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.data}
         default:
             return state
     }
 }
 
 export type setUserDataAT = ReturnType<typeof setAuthUserDataAC>
-export const setAuthUserDataAC = (userId: number, email: string, login: string) => ({type: 'SET-USER-DATA', data: {userId, email, login}} as const)
+export const setAuthUserDataAC = (data: AuthPageType) => ({type: 'SET-USER-DATA', data} as const)
 
 export const setAuthUserDataTC = () => (dispatch: Dispatch) => {
-    authMe()
-        .then(data => {
-            const {id, email, login} = data.data
-            data.resultCode === 0 ? dispatch(setAuthUserDataAC(id, email, login)) : undefined
+    AuthMe.authMe()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                const {id, email, login} = res.data.data
+                const userId = id
+                console.log(res.data.data)
+                const isAuth = true
+                dispatch(setAuthUserDataAC({userId, email, login, isAuth}))
+            }
+        })
+}
+
+export const setLoginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppThunkDispatch) => {
+    AuthMe.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setAuthUserDataTC())
+            }
+        })
+}
+
+export const setLogoutTC = () => (dispatch: Dispatch) => {
+    AuthMe.logout()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                const data = {
+                    userId: null,
+                    email: null,
+                    login: null,
+                    isAuth: false
+                }
+                dispatch(setAuthUserDataAC(data))
+            }
         })
 }

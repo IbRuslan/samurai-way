@@ -7,7 +7,7 @@ import {MessageContainer} from "./components/Messages/MessagesContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainerConnect} from "./components/Profile/ProfileContainer";
 import {HeaderContainerApi} from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
+import Login from "./components/Login/Login";
 import React from "react";
 
 

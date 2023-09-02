@@ -7,11 +7,17 @@ const instance = axios.create({
     headers: {"API-KEY": "afd6ff0f-b946-43ee-8cf6-ef27b7241d9b"}
 })
 
-export const authMe = () => {
-    return instance.get("auth/me")
-        .then(response => {
-            return response.data
-        })
+
+export const AuthMe = {
+    authMe() {
+        return instance.get("auth/me")
+    },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete('auth/login')
+    }
 }
 
 export const UserApi = {
