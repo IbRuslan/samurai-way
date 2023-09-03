@@ -14,20 +14,38 @@
 }
 
 .select {
-    border: 1px solid black;
-    padding: 5px;
     background-color: #0d2342;
     color: white;
 }
 
-.selects {
-    margin-bottom: 20px;
-}
-
-.selects span {
+.pages {
+    text-align: center;
+    border-radius: 20px;
+    min-width: 20px;
+    margin-right: 5px;
     border: 1px solid black;
     padding: 5px;
 }
 
+.ellipsis {
+    padding: 5px;
+    margin: 2px;
+}
+
+.selects {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.selects img {
+    width: 25px;
+    margin: 5px;
+}
+
 .preloader {
+}
+
+.users {
+    margin-left: 20px;
 }

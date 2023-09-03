@@ -2,10 +2,10 @@ import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
 import {ActionProfileType, profileReducer} from "./profile-reducer";
 import {ActionMessagesType, messagesReducer,} from "./messages-reducer";
 import {ActionUsersType, userReducer} from "./users-reducer";
-import {authReducer} from "./auth-reducer";
+import {ActionAuthType, authReducer} from "./auth-reducer";
 import thunkMiddleware, {ThunkDispatch} from "redux-thunk"
 import {reducer as formReducer} from 'redux-form'
-import {appReducer} from "./app-reducer";
+import {ActionAppType, appReducer} from "./app-reducer";
 
 const reducers = combineReducers({
     profile: profileReducer,
@@ -16,7 +16,7 @@ const reducers = combineReducers({
     app: appReducer
 })
 
-export type ActionType = ActionProfileType | ActionMessagesType | ActionUsersType;
+export type ActionType = ActionProfileType | ActionMessagesType | ActionUsersType | ActionAuthType | ActionAppType;
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 

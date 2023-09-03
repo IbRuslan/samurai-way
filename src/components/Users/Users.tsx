@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './users.module.css'
 import userPhoto from '../../img/avatar/userPhoto.png'
+import prev from '../../img/nav/arrow-left.svg'
+import next from '../../img/nav/arrow-right.svg'
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 
@@ -29,34 +31,24 @@ export const Users = (props: UsersTypeProps) => {
 
     const onClickUnFollowHandler = (id: number) => {
         props.unFollow(id)
-        // unFollow(id)
-        //     .then(data => {
-        //         if(data.resultCode === 0) {
-        //             props.unFollow(id)
-        //         }
-        //         props.followingInProgress(false, id)
-        //     })
     }
     const onClickFollowHandler = (id: number) => {
         props.follow(id)
-        // follow(id)
-        //     .then(data => {
-        //         if(data.resultCode === 0) {
-        //             props.follow(id)
-        //         }
-        //         props.followingInProgress(false, id)
-        //     })
     }
     return (
         <div className={s.container}>
             <div className={s.selects}>
+                <img src={prev}/>
                 {
                     pages.map(p =>
-                        <span onClick={() => props.currentPageChanged(p)} key={p} className={props.currentPage === p ? s.select : ''}>{p}</span>)
+                        <span onClick={() => props.currentPageChanged(p)} key={p}
+                              className={props.currentPage === p ? s.select : ''}>{p}</span>)
                 }
+                <img src={next}/>
             </div>
             {
-                props.users.map(u => <div key={u.id}>
+                props.users.map(u =>
+                    <div key={u.id} className={s.users}>
                     <span>
                         <div className={s.container_img}>
                             <NavLink to={'profile/' + u.id}>
@@ -68,8 +60,10 @@ export const Users = (props: UsersTypeProps) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button disabled={props.InProgress.some(id => id === u.id)} onClick={() => onClickUnFollowHandler(u.id)}>UnFollow</button>
-                                : <button disabled={props.InProgress.some(id => id === u.id)} onClick={() => onClickFollowHandler(u.id)}>Follow</button>
+                                ? <button disabled={props.InProgress.some(id => id === u.id)}
+                                          onClick={() => onClickUnFollowHandler(u.id)}>UnFollow</button>
+                                : <button disabled={props.InProgress.some(id => id === u.id)}
+                                          onClick={() => onClickFollowHandler(u.id)}>Follow</button>
                             }
                         </div>
                     </span>

@@ -4,6 +4,8 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../SuperComponents/Preloader/Preloader";
+import {userSelector} from "../../redux/selectors/user-selectors";
+import {UsersPagination} from "./UsersPagination";
 
 export interface UsersApiProps {
     users: Array<UsersType>
@@ -42,7 +44,7 @@ class UsersApi extends React.Component<UsersApiProps> {
         return (<>
                 {this.props.isFetching
                     ? <Preloader/>
-                    : <Users users={this.props.users}
+                    : <UsersPagination users={this.props.users}
                              currentPageChanged={this.currentPageChanged}
                              totalCount={this.props.totalCount}
                              pageSize={this.props.pageSize}
@@ -60,12 +62,12 @@ class UsersApi extends React.Component<UsersApiProps> {
 const mapStateToProps = (state: AppRootStateType) => {
 
     return {
-        users: state.users.items,
-        totalCount: state.users.totalCount,
-        pageSize: state.users.pageSize,
-        currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching,
-        InProgress: state.users.followingInProgress
+        users: userSelector.getUser(state),
+        totalCount: userSelector.getTotalUserCount(state),
+        pageSize: userSelector.getPageSize(state),
+        currentPage: userSelector.getCurrentPage(state),
+        isFetching: userSelector.getIsFetching(state),
+        InProgress: userSelector.getInProgress(state)
     }
 }
 
