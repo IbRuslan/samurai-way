@@ -63,8 +63,9 @@ const Login: React.FC<LoginTypeProps> = ({setLoginTC, ...props}) => {
     }
 
     return (
-        <div>
+        <div className={s.login}>
             <h1>Login</h1>
+            <a className={s.signup} href="https://social-network.samuraijs.com/signUp" target="_blank">Регистрация</a>
             <ReduxLoginForm onSubmit={onSubmit}/>
         </div>
     );
