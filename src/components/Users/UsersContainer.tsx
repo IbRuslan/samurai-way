@@ -2,9 +2,8 @@ import React, {FC} from 'react';
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
-import {Users} from "./Users";
 import {Preloader} from "../SuperComponents/Preloader/Preloader";
-import {userSelector} from "../../redux/selectors/user-selectors";
+import {getUser, userSelector} from "../../redux/selectors/user-selectors";
 import {UsersPagination} from "./UsersPagination";
 
 export interface UsersApiProps {
@@ -62,7 +61,7 @@ class UsersApi extends React.Component<UsersApiProps> {
 const mapStateToProps = (state: AppRootStateType) => {
 
     return {
-        users: userSelector.getUser(state),
+        users: getUser(state),
         totalCount: userSelector.getTotalUserCount(state),
         pageSize: userSelector.getPageSize(state),
         currentPage: userSelector.getCurrentPage(state),

@@ -10,7 +10,7 @@ export interface MessageFormValues {
 
 interface MessageFormProps extends InjectedFormProps<MessageFormValues> {}
 
-const maxLength = maxLengthCreator(10)
+const maxLength = maxLengthCreator(1000)
 
 export const SuperTextarea: React.FC<MessageFormProps> = ({handleSubmit}) => {
 

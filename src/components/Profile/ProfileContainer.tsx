@@ -6,7 +6,8 @@ import {
     profileUpdateUserStatusTC,
     profileGetUserStatusTC,
     profileShowUserTC,
-    ProfileType } from "../../redux/profile-reducer";
+    ProfileType, savePhotoTC
+} from "../../redux/profile-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -22,6 +23,7 @@ export type ProfileContainerProps = {
     myId: string
     profileGetUserStatusTC: (userId: string) => void
     profileUpdateUserStatusTC: (status: string) =>  void
+    savePhotoTC: (file: FileList) => void
     status: string
 }
 
@@ -41,7 +43,7 @@ class ProfileContainer extends React.Component<RouteComponentProps<MatchParams> 
         if (!this.props.isAuth) return <Redirect to={'login'}/>
         return (
             <div className={s.profile}>
-                <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.profileUpdateUserStatusTC} />
+                <Profile savePhoto={this.props.savePhotoTC} isOwner={!this.props.match.params.userId} profile={this.props.profile} status={this.props.status} updateStatus={this.props.profileUpdateUserStatusTC} />
             </div>
         )
     }
@@ -58,6 +60,6 @@ const mapStateToProps = (state: AppRootStateType) => {
 
 // @ts-ignore
 export const ProfileContainerConnect:FC = compose(
-    connect(mapStateToProps, {profileShowUserTC, profileGetUserStatusTC, profileUpdateUserStatusTC}),
+    connect(mapStateToProps, {profileShowUserTC, profileGetUserStatusTC, profileUpdateUserStatusTC, savePhotoTC}),
     withRouter
 )(ProfileContainer)

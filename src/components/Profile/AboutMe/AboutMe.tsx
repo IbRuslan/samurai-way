@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './aboutme.module.css'
 import {ProfileType} from "../../../redux/profile-reducer";
 import {Preloader} from "../../SuperComponents/Preloader/Preloader";
@@ -9,6 +9,8 @@ type AboutMeProps = {
     profile: ProfileType
     status: string
     updateStatus: (newStatus: string) => any
+    isOwner: boolean
+    savePhoto: (files: FileList) => void;
 }
 
 export const AboutMe = (props: AboutMeProps) => {
@@ -17,10 +19,15 @@ export const AboutMe = (props: AboutMeProps) => {
         return <Preloader/>
     }
 
+    const onChangeProfilePhotoHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.target.files && props.savePhoto(e.target.files)
+    }
+
     return (
         <div className={s.aboutme}>
             <div className={s.foto}>
                 <img className={s.ava} src={props.profile.photos.large ? props.profile.photos.large : userPhoto} alt=''/>
+                {props.isOwner && <input type="file" onChange={onChangeProfilePhotoHandler}/>}
             </div>
             <div className={s.about}>
                 <div className={s.myname}>{props.profile && props.profile.fullName}</div>
