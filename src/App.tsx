@@ -13,6 +13,7 @@ import {initializeTC} from "./redux/app-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/redux-store";
 import MainPreloader from "./components/SuperComponents/MainPreloader/MainPreloader";
+import {NotFound} from "./components/SuperComponents/NotFound/NotFound";
 
 
 const App = () => {
@@ -27,21 +28,21 @@ const App = () => {
 
     return (
         <BrowserRouter>
-                {initialized ?
-                    <div className="App">
-                        <HeaderContainerApi/>
-                        <Navbar/>
-                        <div className="content">
+            {initialized ?
+                <div className="App">
+                    <HeaderContainerApi/>
+                    <Navbar/>
+                    <div className="content">
                             <Route path='/login' component={Login}/>
                             <Route path='/profile/:userId?' component={ProfileContainerConnect}/>
                             <Route path='/messages' render={() => <MessageContainer/>}/>
                             <Route path='/users' component={UsersContainer}/>
                             <Route path='/music' component={Music}/>
                             <Route path='/settings' component={Settings}/>
-                        </div>
                     </div>
-                    : <MainPreloader/>
-                }
+                </div>
+                : <MainPreloader/>
+            }
 
         </BrowserRouter>
     );

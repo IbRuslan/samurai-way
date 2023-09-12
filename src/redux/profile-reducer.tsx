@@ -1,6 +1,5 @@
 import {Dispatch} from "redux";
 import {ProfileApi} from "../api/api";
-import Login from "../components/Login/Login";
 
 export type PostsType = {
     id: number

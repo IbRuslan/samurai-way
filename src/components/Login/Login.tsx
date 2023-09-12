@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import s from './Login.module.css'
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {setLoginTC} from "../../redux/auth-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
@@ -11,15 +11,17 @@ interface LoginFormValues {
     email: string;
     password: string;
     rememberMe: boolean;
-    error: string
+    error: string;
+    captcha: string
 }
 
 interface LoginFormProps extends InjectedFormProps<LoginFormValues> {
 }
 
-const LoginForm = (props: LoginFormProps): ReactElement => {
+const LoginForm: React.FC<LoginFormProps> = (props) => {
 
     const {handleSubmit} = props;
+    const captcha = useSelector<AppRootStateType, string | null>(state => state.auth.captcha)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -28,6 +30,14 @@ const LoginForm = (props: LoginFormProps): ReactElement => {
             </div>
             <div>
                 <Field placeholder={'password'} component={'input'} type={'password'} name={'password'}/>
+            </div>
+            <div style={{margin: '10px'}}>
+                {
+                    captcha && <div><img style={{width: '130px'}} src={captcha}/></div>
+                }
+                {
+                    captcha && <div><Field placeholder={'symbols from image'} name={'captcha'} component={'input'} /></div>
+                }
             </div>
             {
                 props.error
@@ -49,13 +59,13 @@ const LoginForm = (props: LoginFormProps): ReactElement => {
 const ReduxLoginForm = reduxForm<LoginFormValues, {}>({form: 'login'})(LoginForm);
 
 type LoginTypeProps = {
-    setLoginTC: (email: string, password: string, rememberMe: boolean) => void
-    isAuth: boolean
+    setLoginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+    isAuth: boolean,
 }
 
 const Login: React.FC<LoginTypeProps> = ({setLoginTC, ...props}) => {
     const onSubmit = (formData: LoginFormValues) => {
-        setLoginTC(formData.email, formData.password, formData.rememberMe)
+        setLoginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (props.isAuth) {
