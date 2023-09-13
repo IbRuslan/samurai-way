@@ -1,6 +1,6 @@
 import './App.css';
 import {Navbar} from "./components/Navbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {MessageContainer} from "./components/Messages/MessagesContainer";
@@ -33,12 +33,16 @@ const App = () => {
                     <HeaderContainerApi/>
                     <Navbar/>
                     <div className="content">
+                        <Switch>
+                            <Redirect exact from="/" to="/profile" />
                             <Route path='/login' component={Login}/>
                             <Route path='/profile/:userId?' component={ProfileContainerConnect}/>
                             <Route path='/messages' render={() => <MessageContainer/>}/>
                             <Route path='/users' component={UsersContainer}/>
                             <Route path='/music' component={Music}/>
                             <Route path='/settings' component={Settings}/>
+                            <Route path='*' component={NotFound}/>
+                        </Switch>
                     </div>
                 </div>
                 : <MainPreloader/>
